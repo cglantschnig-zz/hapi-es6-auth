@@ -2,6 +2,7 @@
  * Routes about Authentication
  */
 import * as controller from '../controllers/auth';
+import { tokenSchema, authenticationSchema } from '../schema/authSchema';
 
 
 var routes = [

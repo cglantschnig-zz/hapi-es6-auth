@@ -1,14 +1,16 @@
-# hapi-es6-starter
+# hapi-es6-auth
 
-A little startup project using hapi, es6 and docker.
+A sample application with basic login. This project is using oauth2 Authentication
+and a regular Postgres database.
 
 ## Usage
 
 In order to make it runnable on all systems you first need to install [docker](https://www.docker.com/). Then just run the following commands and view
 it in the browser on the given IP.
 
-    # docker build -t template .
-    # docker run -p 80:3001 --name app -d template
+    # docker build -t hapi-es6-auth .
+    # docker run --name db postgres:9.4
+    # docker run --rm --link db:db -d hapi-es6-auth
 
 Currently I am using here just single docker containers, but as soon
 [docker-compose](https://github.com/docker/compose) will release the version 1.5.

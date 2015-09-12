@@ -1,7 +1,7 @@
 {
   "name": "hapi-es6-auth",
   "version": "0.1.0",
-  "description": "a sample project with ",
+  "description": "a sample project with hapi/babel/postgres/...",
   "main": "./src/api/index.js",
   "dependencies": {
     "babel": "^5.8.23",
@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cglantschnig/hapi-es6-auth.git"
+    "url": "git@github.com:cglantschnig/hapi-es6-auth.git"
   },
   "author": "Christopher Glantschnig",
   "license": "MIT",

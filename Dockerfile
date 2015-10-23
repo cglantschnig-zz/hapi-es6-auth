@@ -4,7 +4,7 @@ MAINTAINER Christopher Glantschnig <christopher.glantschnig@gmail.com>
 
 RUN mkdir /server
 
-RUN npm install gulp-cli -g
+RUN npm install gulp-cli mocha -g
 
 WORKDIR /server
 ADD package.json /server/package.json
@@ -13,4 +13,5 @@ RUN npm install
 EXPOSE 3000
 
 # CMD npm start
-CMD gulp
+CMD npm test
+# CMD gulp

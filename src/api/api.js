@@ -1,30 +1,35 @@
 import Hapi from 'hapi';
 import { union, values } from 'lodash';
+import promisify from 'es6-promisify';
 import config from '../shared/config';
 import models from '../shared/models/';
 
-var server = new Hapi.Server();
+export var server = new Hapi.Server();
 server.connection({
   host: config.host,
   port: config.port
 });
 
-// set all routes which are located in the routes directory
-var unformatedRoutes = require('require-dir')('./routes');
-var routes = union(...values(unformatedRoutes));
+// get all routes which are located in the routes directory
+let unformatedRoutes = require('require-dir')('./routes');
+let routes = union(...values(unformatedRoutes));
 
 server.route(routes);
 
-server.register(require('./plugins'), function (err) {
-  if (err) {
-    throw err; // something bad happened loading the plugin
-  }
-  models.sequelize.sync().then(function () {
+let register = promisify(server.register.bind(server));
+
+export var ready = register(require('./plugins'))
+  .then(function()  {
+    return models.sequelize.sync();
+  })
+  .then(function () {
     server.start(function () {
       server.log('info', 'Server running at: ' + server.info.uri);
     });
+    return server;
+  })
+  .catch(function(error) {
+    console.error(error);
   });
-
-});
 
 export default server;

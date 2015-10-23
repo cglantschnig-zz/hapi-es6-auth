@@ -1,15 +1,16 @@
+db:
+  image: postgres:9.4
+  environment:
+    POSTGRES_PASSWORD: passwd
+    POSTGRES_USER: dbuser
 web:
   build: .
   volumes:
     - "./src:/server/src"
+    - "./gulpfile.js:/server/gulpfile.js"
   ports:
     - "3000:3000"
   env_file:
     - "./scripts/environment.env"
   links:
     - db
-db:
-  image: postgres:9.4
-  environment:
-    POSTGRES_PASSWORD: passwd
-    POSTGRES_USER: dbuser

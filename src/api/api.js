@@ -1,6 +1,7 @@
 import Hapi from 'hapi';
 import { union, values } from 'lodash';
 import config from '../shared/config';
+import models from '../shared/models/';
 
 var server = new Hapi.Server();
 server.connection({
@@ -18,10 +19,12 @@ server.register(require('./plugins'), function (err) {
   if (err) {
     throw err; // something bad happened loading the plugin
   }
-
-  server.start(function () {
-    server.log('info', 'Server running at: ' + server.info.uri);
+  models.sequelize.sync().then(function () {
+    server.start(function () {
+      server.log('info', 'Server running at: ' + server.info.uri);
+    });
   });
+
 });
 
 export default server;

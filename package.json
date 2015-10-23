@@ -5,16 +5,22 @@
   "main": "./src/api/index.js",
   "dependencies": {
     "babel": "^5.8.23",
-    "good": "^6.3.0",
-    "good-console": "^5.0.3",
-    "hapi": "^9.1.0",
-    "joi": "^6.6.1",
+    "good": "^6.4.0",
+    "good-console": "^5.1.0",
+    "hapi": "^11.0.0",
+    "joi": "^6.9.1",
     "lodash": "^3.10.1",
-    "require-dir": "^0.3.0"
+    "require-dir": "^0.3.0",
+    "sequelize": "^3.12.2",
+    "pg": "^4.4.3",
+    "pg-hstore": "^2.3.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.4"
+  },
   "scripts": {
-    "start": "source ./scripts/environment.sh && node ./src/api/index.js",
+    "start": "node ./src/api/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

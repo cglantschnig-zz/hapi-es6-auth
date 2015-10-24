@@ -1,5 +1,21 @@
 'use strict';
 
+/**
+ * This file returns an object like this as default export
+ * {
+ *   sequelize: [object],
+ *   Sequelize: [object],
+ *   User: [Model],
+ *   ...
+ * }
+ *
+ * If you need a specific model in your code then call it like
+ * import { Model } from './shared/models/';
+ *
+ * More infos on how to work with models can you find here: http://docs.sequelizejs.com/en/latest/
+ *
+ */
+
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';

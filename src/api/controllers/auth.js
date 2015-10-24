@@ -1,4 +1,6 @@
 import Joi from 'joi';
+import Boom from 'boom';
+import { User } from '../../shared/models/';
 import {
   passwordTypeSchema,
   clientCredentialsTypeSchema,
@@ -38,4 +40,37 @@ export function authenticate(request, reply) {
 
 function validatePasswordType() {
   return Promise.resolve();
+}
+
+/**
+ * This call is creating a new user account.
+ */
+export function register(request, reply) {
+  var promise = User
+    .find({
+      where: {
+        $or: [
+          {
+            email: request.payload.email
+          },
+          {
+            username: request.payload.username
+          }
+        ]
+      }
+    })
+    .then(function(userInstance) {
+      // we found a user with the given email or username. Warn the user!
+      if (userInstance) {
+        throw Boom.create(422, "Username or Email are already used");
+      }
+      return User.create(request.payload);
+    })
+    .then(function(userInstance) {
+      return {
+        email: userInstance.email,
+        username: userInstance.username
+      };
+    });
+  reply(promise);
 }

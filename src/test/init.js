@@ -32,20 +32,25 @@ after(function(done) {
 
 // UNIT test begin
 
-describe('Basic Tests',function(){
+describe('Basic Tests',function() {
 
   // #1 should return home page
 
-  it('should return return 404 on /',function(done){
+  it('should create a user',function(done){
 
     // calling home page api
     api
-      .get('/')
+      .post('/api/v1/register')
+      .send({
+        email: 'test@mail.com',
+        password: 'password',
+        username: 'test'
+      })
       .expect('Content-type',/json/)
-      .expect(404) // This is HTTP response
+      .expect(200) // This is HTTP response
       .end(function(err,res){
         // HTTP status should be 404
-        res.status.should.equal(404);
+        res.status.should.equal(200);
         done();
       });
   });

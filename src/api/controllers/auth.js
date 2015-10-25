@@ -42,6 +42,11 @@ function validatePasswordType() {
   return Promise.resolve();
 }
 
+export function getAllUsers(request, reply) {
+  var promise = User.findAll();
+  reply(promise);
+}
+
 /**
  * This call is creating a new user account.
  */

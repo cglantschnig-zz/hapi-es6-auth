@@ -15,6 +15,11 @@ var routes = [
     method: 'POST',
     path: '/api/v1/register',
     handler: controller.register
+  },
+  {
+    method: 'GET',
+    path: '/api/v1/users',
+    handler: controller.getAllUsers
   }
 ];
 

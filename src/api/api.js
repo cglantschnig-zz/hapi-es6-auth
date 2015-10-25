@@ -3,6 +3,7 @@ import { union, values } from 'lodash';
 import promisify from 'es6-promisify';
 import config from '../shared/config';
 import models from '../shared/models/';
+import {up, dropTables} from '../shared/utils/migrate';
 
 export var server = new Hapi.Server();
 server.connection({
@@ -20,7 +21,10 @@ let register = promisify(server.register.bind(server));
 
 export var ready = register(require('./plugins'))
   .then(function()  {
-    return models.sequelize.sync();
+    return dropTables();
+  })
+  .then(function()  {
+    return up();
   })
   .then(function () {
     server.start(function () {

@@ -20,16 +20,19 @@ server.route(routes);
 let register = promisify(server.register.bind(server));
 
 export var ready = register(require('./plugins'))
-/*  .then(function()  {
-    return dropTables();
+  .then(function() {
+    return models.sequelize
+      .authenticate();
   })
-  .then(function()  {
+  .then(function() {
+    console.log('Connection to Database successfully tested!');
     return up();
   })
-  */
+  /*
   .then(function () {
     return models.sequelize.sync();
   })
+  */
   .then(function () {
     server.start(function () {
       server.log('info', 'Server running at: ' + server.info.uri);

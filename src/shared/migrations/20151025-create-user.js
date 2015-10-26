@@ -15,11 +15,11 @@ export default {
         allowNull: false
       },
       password: {
-        type: DataTypes.STRING(512),
+        type: DataTypes.STRING(2048),
         allowNull: false
       },
       salt: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(512),
         allowNull: false
       },
       createdAt: {

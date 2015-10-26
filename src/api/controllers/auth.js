@@ -12,7 +12,6 @@ import {
  * The user can use different grant types with the according data to login.
  * Available Grant Types:
  * - password --> (username, password)
- * - client_credentials --> (user_id)
  * - refresh_token --> (refresh_token)
  */
 export function authenticate(request, reply) {
@@ -53,6 +52,7 @@ export function getAllUsers(request, reply) {
  * 2. create a user-object
  * 3. hash the password and create a salt
  * 4. save the user object
+ * 5. set access and refresh token 
  */
 export function register(request, reply) {
   var promise = User

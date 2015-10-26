@@ -83,9 +83,6 @@ export function register(request, reply) {
         email: userInstance.email,
         username: userInstance.username
       };
-    })
-    .catch(function(error) {
-      return error;
     });
   reply(promise);
 }

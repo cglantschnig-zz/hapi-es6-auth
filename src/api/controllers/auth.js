@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import Boom from 'boom';
+import {assign} from 'lodash';
 import { User } from '../../shared/models/';
 import {
   passwordTypeSchema,
@@ -69,13 +70,20 @@ export function register(request, reply) {
       if (userInstance) {
         throw Boom.create(422, "Username or Email are already used");
       }
-      return User.create(request.payload);
+      var payload = assign({}, request.payload);
+      return User.build(payload).hashPassword();
+    })
+    .then(function(userInstance) {
+      return userInstance.save();
     })
     .then(function(userInstance) {
       return {
         email: userInstance.email,
         username: userInstance.username
       };
+    })
+    .catch(function(error) {
+      return error;
     });
   reply(promise);
 }

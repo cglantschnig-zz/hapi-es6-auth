@@ -20,11 +20,15 @@ server.route(routes);
 let register = promisify(server.register.bind(server));
 
 export var ready = register(require('./plugins'))
-  .then(function()  {
+/*  .then(function()  {
     return dropTables();
   })
   .then(function()  {
     return up();
+  })
+  */
+  .then(function () {
+    return models.sequelize.sync();
   })
   .then(function () {
     server.start(function () {

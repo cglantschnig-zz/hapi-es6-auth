@@ -1,6 +1,9 @@
 'use strict';
 
 import crypto from 'crypto';
+import promisify from 'es6-promisify';
+
+let hashWord = promisify(crypto.pbkdf2);
 
 export default function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
@@ -19,11 +22,11 @@ export default function(sequelize, DataTypes) {
       allowNull: false
     },
     password: {
-      type: DataTypes.STRING(512),
+      type: DataTypes.STRING(2048),
       allowNull: false
     },
     salt: {
-      type: DataTypes.STRING(128),
+      type: DataTypes.STRING(512),
       allowNull: false
     }
 
@@ -32,20 +35,22 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
       }
+    },
+    instanceMethods: {
+      hashPassword: function() {
+        var salt = crypto.randomBytes(128).toString('base64');
+
+        return hashWord(this.password, salt, 10000, 512)
+          .then((derivedKey) => {
+            console.log('finished', derivedKey.length, salt.length);
+
+            this.password = derivedKey;
+            this.salt = salt;
+            return this;
+          });
+      }
     }
   });
-
-  var hashPasswordHook = function(instance, done) {
-    if (!instance.changed('password')) return done();
-    var salt = crypto.randomBytes(128).toString('base64');
-    crypto.pbkdf2(password, salt, 10000, 512, function(err, derivedKey) {
-      instance.set('password', derivedKey);
-      instance.set('salt', salt);
-      done();
-    });
-  };
-  User.beforeCreate(hashPasswordHook);
-  User.beforeUpdate(hashPasswordHook);
 
   return User;
 };

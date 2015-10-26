@@ -42,8 +42,6 @@ export default function(sequelize, DataTypes) {
 
         return hashWord(this.password, salt, 10000, 512)
           .then((derivedKey) => {
-            console.log('finished', derivedKey.length, salt.length);
-
             this.password = derivedKey;
             this.salt = salt;
             return this;

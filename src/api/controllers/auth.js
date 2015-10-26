@@ -1,6 +1,5 @@
 import Joi from 'joi';
 import Boom from 'boom';
-import {assign} from 'lodash';
 import { User } from '../../shared/models/';
 import {
   passwordTypeSchema,
@@ -50,6 +49,10 @@ export function getAllUsers(request, reply) {
 
 /**
  * This call is creating a new user account.
+ * 1. we check if there is already a user with the given username/email
+ * 2. create a user-object
+ * 3. hash the password and create a salt
+ * 4. save the user object
  */
 export function register(request, reply) {
   var promise = User
@@ -70,8 +73,7 @@ export function register(request, reply) {
       if (userInstance) {
         throw Boom.create(422, "Username or Email are already used");
       }
-      var payload = assign({}, request.payload);
-      return User.build(payload).hashPassword();
+      return User.build(request.payload).hashPassword();
     })
     .then(function(userInstance) {
       return userInstance.save();

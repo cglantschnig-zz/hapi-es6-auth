@@ -16,7 +16,7 @@ var umzug = new Umzug({
     params: [sequelize.getQueryInterface(), Sequelize],
 
     // The path to the migrations directory.
-    path: path.join(config.base_path, 'shared/migrations'),
+    path: path.resolve(process.cwd(), 'src/shared/migrations'),
 
     // The pattern that determines whether or not a file is a migration.
     pattern: /^\d+[\w-]+\.js$/
@@ -27,7 +27,18 @@ var umzug = new Umzug({
  * executes all migrations
  */
 export function up() {
-  return umzug.up();
+  return umzug
+    .executed()
+    .then(function(executedMigrations) {
+      console.log(executedMigrations);
+      return umzug.pending();
+    })
+    .then(function(pendingMigrations) {
+      if (pendingMigrations > 0) {
+        return umzug.up();
+      }
+      console.log('All migrations set!');
+    });
 }
 
 /**

@@ -21,8 +21,7 @@ let register = promisify(server.register.bind(server));
 
 export var ready = register(require('./plugins'))
   .then(function() {
-    return models.sequelize
-      .authenticate();
+    return models.sequelize.authenticate();
   })
   .then(function() {
     console.log('Connection to Database successfully tested!');

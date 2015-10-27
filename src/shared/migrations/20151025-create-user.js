@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   up: function(migration, DataTypes) {
     return migration.createTable('Users', {
       id: {

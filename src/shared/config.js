@@ -48,6 +48,4 @@ if (environment === 'test') {
   config.database = config.test_database;
 }
 
-console.log(config);
-
 export default config;

@@ -22,7 +22,8 @@ import Sequelize from 'sequelize';
 import config from '../config';
 var sequelize = new Sequelize(config.database.name, config.database.user, config.database.password, {
   dialect: 'postgres',
-  host: config.database.host
+  host: config.database.host,
+  logging: false
 });
 var db = {};
 

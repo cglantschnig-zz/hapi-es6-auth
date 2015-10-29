@@ -3,21 +3,34 @@
 A sample application with basic login. This project is using oauth2 Authentication
 and a regular Postgres database.
 
-## Usage
+## Prerequisites
 
-In order to make it runnable on all systems you first need to install [docker](https://www.docker.com/). Then just run the following commands and view
-it in the browser on the given IP.
+Install [Docker](https://www.docker.com/) on your system.
 
-    # docker build -t hapi-es6-auth .
-    # docker run --name db postgres:9.4
-    # docker run --rm --link db:db -d hapi-es6-auth
+* [Install instructions](https://docs.docker.com/installation/mac/) for Mac OS X
+* [Install instructions](https://docs.docker.com/installation/ubuntulinux/) for Ubuntu Linux
+* [Install instructions](https://docs.docker.com/installation/) for other platforms
 
-Currently I am using here just single docker containers, but as soon
-[docker-compose](https://github.com/docker/compose) will release the version 1.5.
-This repository is going to use it. Version 1.5 brings support for Windows. You
-could use some custom solutions like described [here](http://stackoverflow.com/questions/29289785/how-to-install-docker-compose-on-windows).
+Install [Docker Compose](http://docs.docker.com/compose/) on your system.
 
-Just follow the [current status of docker-compose](https://github.com/docker/compose/wiki/1.5.0-Milestone-Project-Page)
+* Python/pip: `sudo pip install -U docker-compose`
+* Other: ``curl -L https://github.com/docker/compose/releases/download/1.1.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose; chmod +x /usr/local/bin/docker-compose``
+
+## Setup
+
+First you need to run `docker-compose build` in order to build the docker files.
+Next you need `docker-compose up` to download the dependencies and run the linked
+containers. Your final command will decide if you run the application in normal mode,
+in development mode or if you want to run the tests.
+
+    # docker-compose build
+    # docker-compose up -d
+
+    # docker-compose run web npm start
+    # docker-compose run web gulp
+    # docker-compose run web npm test
+
+Now you can easily view the website at `http://localhost` on your host machine.
 
 ## License
 

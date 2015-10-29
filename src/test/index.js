@@ -11,6 +11,7 @@
 require('babel/register');
 
 /**
- * initializes the test suits
+ * initializes the test suits. and set the environment before
  */
+process.env.NODE_ENV = 'test';
 require('./init');

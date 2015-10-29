@@ -12,6 +12,8 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD npm start
+# no command set on purpose
+# in case you want to set a command choose one of the below
+# CMD npm start
 # CMD npm test
 # CMD gulp

@@ -32,6 +32,6 @@ module.exports = {
   },
 
   down: function(migration, Sequelize) {
-    migration.dropTable('Users');
+    return migration.dropTable('Users');
   }
 };

@@ -10,13 +10,23 @@ var umzug = new Umzug({
     console.log(info);
   },
 
+  // The storage.
+  // Possible values: 'json', 'sequelize', an object
+  storage: 'sequelize',
+
+  // The options for the storage.
+  // Check the available storages for further details.
+  storageOptions: {
+    sequelize: sequelize
+  },
+
   migrations: {
     // The params that gets passed to the migrations.
     // Might be an array or a synchronous function which returns an array.
     params: [sequelize.getQueryInterface(), Sequelize],
 
     // The path to the migrations directory.
-    path: path.resolve(process.cwd(), 'src/shared/migrations'),
+    path: path.join(__dirname, '../migrations'),
 
     // The pattern that determines whether or not a file is a migration.
     pattern: /^\d+[\w-]+\.js$/

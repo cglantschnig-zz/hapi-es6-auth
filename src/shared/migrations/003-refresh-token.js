@@ -7,17 +7,17 @@ module.exports = {
         autoIncrement: true
       },
       token: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false
       },
       expires_in: {
         type: DataTypes.INTEGER,
         allowNull: false
       },
-      createdAt: {
+      created_at: {
         type: DataTypes.DATE
       },
-      updatedAt: {
+      updated_at: {
         type: DataTypes.DATE
       }
     });

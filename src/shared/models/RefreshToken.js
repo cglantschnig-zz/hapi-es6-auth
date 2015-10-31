@@ -9,7 +9,7 @@ export default function(sequelize, DataTypes) {
       autoIncrement: true
     },
     token: {
-      type: DataTypes.STRING,
+      type: DataTypes.UUID,
       allowNull: false
     },
     expires_in: {

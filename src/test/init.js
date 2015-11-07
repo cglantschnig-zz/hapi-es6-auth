@@ -47,9 +47,7 @@ describe('Basic Tests',function() {
         username: 'test'
       })
       .expect('Content-type',/json/)
-      .expect(200) // This is HTTP response
       .end(function(err,res){
-        // HTTP status should be 404
         res.status.should.equal(200);
         done();
       });

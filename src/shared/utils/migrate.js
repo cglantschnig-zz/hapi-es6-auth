@@ -1,4 +1,3 @@
-import path from 'path';
 import Umzug from 'umzug';
 import config from '../config';
 import { sequelize, Sequelize } from '../models/';
@@ -23,13 +22,13 @@ var umzug = new Umzug({
   migrations: {
     // The params that gets passed to the migrations.
     // Might be an array or a synchronous function which returns an array.
-    params: [sequelize.getQueryInterface(), Sequelize],
+    params: [sequelize.getQueryInterface(), sequelize.constructor],
 
     // The path to the migrations directory.
-    path: path.join(__dirname, '../migrations'),
+    path: './src/shared/migrations',
 
     // The pattern that determines whether or not a file is a migration.
-    pattern: /^\d+[\w-]+\.js$/
+    pattern: /\.js$/
   }
 });
 
@@ -40,11 +39,10 @@ export function up() {
   return umzug
     .executed()
     .then(function(executedMigrations) {
-      console.log(executedMigrations);
       return umzug.pending();
     })
     .then(function(pendingMigrations) {
-      if (pendingMigrations > 0) {
+      if (pendingMigrations.length > 0) {
         return umzug.up();
       }
       console.log('All migrations set!');

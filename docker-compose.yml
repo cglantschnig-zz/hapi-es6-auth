@@ -10,7 +10,6 @@ web:
   links:
     - db
     - db_test
-
 db:
   image: postgres:9.4
   environment:

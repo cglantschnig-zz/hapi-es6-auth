@@ -24,7 +24,9 @@ var sequelize = new Sequelize(config.database.name, config.database.user, config
   dialect: 'postgres',
   host: config.database.host,
   logging: false,
-  underscored: true
+  define: {
+    underscored: true
+  }
 });
 var db = {};
 

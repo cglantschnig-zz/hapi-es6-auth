@@ -1,6 +1,8 @@
 import supertest from 'supertest';
 import should from 'should';
 import { ready } from '../api/api.js';
+import { up, dropTables } from '../shared/utils/migrate';
+import initialData from './initialData';
 
 // This agent refers to PORT where program is runninng.
 
@@ -19,6 +21,24 @@ before(function(done) {
       done();
     });
 });
+
+/**
+ * will get called my mocha before each single test. We will clear the database
+ * each time and set the initial data for the same environment in all tests.
+ */
+beforeEach(function(done) {
+  this.timeout(0); // disable the timeout, database reset can take time
+  dropTables()
+    .then(function() {
+      return up();
+    })
+    .then(function() {
+      return initialData();
+    })
+    .then(function(data) {
+      done();
+    });
+})
 
 /**
  * after all tests have been run, we need to stop the server

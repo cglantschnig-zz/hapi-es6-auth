@@ -52,7 +52,7 @@ export function getAllUsers(request, reply) {
  * 2. create a user-object
  * 3. hash the password and create a salt
  * 4. save the user object
- * 5. set access and refresh token 
+ * 5. set access and refresh token
  */
 export function register(request, reply) {
   var promise = User
@@ -79,10 +79,15 @@ export function register(request, reply) {
       return userInstance.save();
     })
     .then(function(userInstance) {
+      console.log(userInstance.password);
+      console.log(userInstance.salt);
       return {
         email: userInstance.email,
         username: userInstance.username
       };
+    })
+    .catch(function(err) {
+      console.log(err);
     });
   reply(promise);
 }

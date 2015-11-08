@@ -3,9 +3,9 @@ import chai from 'chai';
 
 let expect = chai.expect;
 
-describe('POST /api/v1/register',function() {
+describe('POST /api/v1/register', function() {
 
-  it('should create a user',function(done){
+  it('should create a user successfully',function(done){
     api
       .post('/api/v1/register')
       .send({
@@ -23,7 +23,7 @@ describe('POST /api/v1/register',function() {
       });
   });
 
-  it('should have status 400 for missing username',function(done){
+  it('should have status 400 for missing username', function(done){
     api
       .post('/api/v1/register')
       .send({
@@ -36,7 +36,7 @@ describe('POST /api/v1/register',function() {
       });
   });
 
-  it('should have status 400 for missing email',function(done){
+  it('should have status 400 for missing email', function(done){
     api
       .post('/api/v1/register')
       .send({
@@ -49,11 +49,11 @@ describe('POST /api/v1/register',function() {
       });
   });
 
-  it('should have status 400 for missing password',function(done){
+  it('should have status 400 for missing password', function(done){
     api
       .post('/api/v1/register')
       .send({
-        email: 'test@mail.com',
+        grant_type: 'password',
         username: 'username'
       })
       .end(function(err,res) {

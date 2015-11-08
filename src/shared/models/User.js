@@ -48,6 +48,12 @@ export default function(sequelize, DataTypes) {
             this.salt = salt;
             return this;
           });
+      },
+      comparePassword: function(password) {
+        return hashWord(password, this.salt, 10000, 512)
+          .then((hashedPassword) => {
+            return hashedPassword.toString('hex') === this.password;
+          });
       }
     }
   });

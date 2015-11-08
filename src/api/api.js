@@ -11,6 +11,11 @@ server.connection({
   port: config.port
 });
 
+// disable logging for tests
+if (config.environment === 'test') {
+  server.log = function() {};
+}
+
 // get all routes which are located in the routes directory
 let unformatedRoutes = require('require-dir')('./routes');
 let routes = union(...values(unformatedRoutes));
@@ -24,7 +29,7 @@ export var ready = register(require('./plugins'))
     return models.sequelize.authenticate();
   })
   .then(function() {
-    console.log('Connection to Database successfully tested!');
+    server.log('Connection to Database successfully tested!');
     return up();
   })
   /*

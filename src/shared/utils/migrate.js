@@ -1,12 +1,16 @@
 import Umzug from 'umzug';
 import config from '../config';
 import { sequelize, Sequelize } from '../models/';
+import server from '../../api/api';
 
 var umzug = new Umzug({
   // The logging function.
   // A function that gets executed everytime migrations start and have ended.
   logging: function(info) {
-    console.log(info);
+    // if we are in the test environment we want to disable logging
+    if (config.environment !== 'test') {
+      console.log(info);
+    }
   },
 
   // The storage.
@@ -45,7 +49,7 @@ export function up() {
       if (pendingMigrations.length > 0) {
         return umzug.up();
       }
-      console.log('All migrations set!');
+      server.log('All migrations set!');
     });
 }
 
@@ -58,7 +62,7 @@ export function dropMigration() {
     .then(function (migrations) {
       // "migrations" will be an Array of already executed migrations.
       if (migrations.length === 0) {
-        console.log('Migration are already dropped!');
+        server.log('Migration are already dropped!');
         return;
       }
       return umzug.down({ to: migrations[0] });

@@ -1,12 +1,11 @@
 import api from '../../request.js';
-import should from 'should';
+import chai from 'chai';
 
-describe('Basic Tests',function() {
+let expect = chai.expect;
 
-  // #1 should return home page
+describe('POST /api/v1/register',function() {
 
   it('should create a user',function(done){
-
     api
       .post('/api/v1/register')
       .send({
@@ -14,9 +13,51 @@ describe('Basic Tests',function() {
         password: 'password',
         username: 'username'
       })
-      .expect('Content-type',/json/)
-      .end(function(err,res){
-        res.status.should.equal(200);
+      .end(function(err,res) {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.ownProperty('token_type');
+        expect(res.body).to.have.ownProperty('access_token');
+        expect(res.body).to.have.ownProperty('refresh_token');
+        expect(res.body).to.have.ownProperty('expires_in');
+        done();
+      });
+  });
+
+  it('should have status 400 for missing username',function(done){
+    api
+      .post('/api/v1/register')
+      .send({
+        email: 'test@mail.com',
+        password: 'password'
+      })
+      .end(function(err,res) {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+
+  it('should have status 400 for missing email',function(done){
+    api
+      .post('/api/v1/register')
+      .send({
+        password: 'password',
+        username: 'username'
+      })
+      .end(function(err,res) {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+
+  it('should have status 400 for missing password',function(done){
+    api
+      .post('/api/v1/register')
+      .send({
+        email: 'test@mail.com',
+        username: 'username'
+      })
+      .end(function(err,res) {
+        expect(res.status).to.equal(400);
         done();
       });
   });

@@ -15,7 +15,10 @@ export default function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      set: function(email) {
+        this.setDataValue('email', email.toLowerCase());
+      }
     },
     username: {
       type: DataTypes.STRING,

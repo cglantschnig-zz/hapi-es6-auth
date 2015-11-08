@@ -3,7 +3,7 @@ import Boom from 'boom';
 import uuid from 'node-uuid';
 import promisify from 'es6-promisify';
 import config from '../../shared/config';
-import { User, AccessToken, RefreshToken } from '../../shared/models/';
+import { Sequelize, User, AccessToken, RefreshToken } from '../../shared/models/';
 import {
   passwordTypeSchema,
   clientCredentialsTypeSchema,
@@ -56,11 +56,9 @@ function validatePasswordType(payload) {
       where: {
         $or: [
           {
-            email: payload.username
+            email: payload.username.toLowerCase()
           },
-          {
-            username: payload.username
-          }
+          Sequelize.where(Sequelize.fn('lower', Sequelize.col('username')), Sequelize.fn('lower', payload.username))
         ]
       }
     })
@@ -76,7 +74,7 @@ function validatePasswordType(payload) {
           }
           return userInstance;
         });
-    })
+    });
 }
 
 /**
@@ -125,9 +123,7 @@ export function register(request, reply) {
           {
             email: request.payload.email
           },
-          {
-            username: request.payload.username
-          }
+          Sequelize.where(Sequelize.fn('lower', Sequelize.col('username')), Sequelize.fn('lower', request.payload.username))
         ]
       }
     })

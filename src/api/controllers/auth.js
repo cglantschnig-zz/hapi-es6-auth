@@ -84,7 +84,9 @@ function createToken(userInstance) {
   return Promise
     .all([
       RefreshToken.destroy({ where: { UserId: userInstance.id }}),
-      AccessToken.destroy({ where: { UserId: userInstance.id }})
+      AccessToken.destroy({ where: { UserId: userInstance.id }}),
+      RefreshToken.clear(),
+      AccessToken.clear()
     ])
     .then(function() {
       return Promise.all([
@@ -99,6 +101,9 @@ function createToken(userInstance) {
         refresh_token: instances[0].token,
         expires_in: config.token_validity
       };
+    })
+    .catch(function(err) {
+      console.log(err);
     });
 }
 

@@ -27,6 +27,16 @@ export default function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         RefreshToken.belongsTo(models.User);
+      },
+      clear: function() {
+        return RefreshToken
+          .destroy({
+            where: {
+              expires_in: {
+                $lt: new Date()
+              }
+            }
+          });
       }
     }
   });

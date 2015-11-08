@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import Boom from 'boom';
+import uuid from 'node-uuid';
 import { User } from '../../shared/models/';
 import {
   passwordTypeSchema,
@@ -27,9 +28,9 @@ export function authenticate(request, reply) {
   promise = promise
     .then(function(userInstance) {
       return {
-        grant_type: 'Bearer',
-        access_token: 'test',
-        refresh_token: 'test',
+        token_type: 'Bearer',
+        access_token: uuid.v4(),
+        refresh_token: uuid.v4(),
         expires_in: 3600
       };
     });
@@ -80,8 +81,10 @@ export function register(request, reply) {
     })
     .then(function(userInstance) {
       return {
-        email: userInstance.email,
-        username: userInstance.username
+        token_type: 'Bearer',
+        access_token: uuid.v4(),
+        refresh_token: uuid.v4(),
+        expires_in: 3600
       };
     })
     .catch(function(err) {

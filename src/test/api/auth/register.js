@@ -12,7 +12,7 @@ describe('Basic Tests',function() {
       .send({
         email: 'test@mail.com',
         password: 'password',
-        username: 'test'
+        username: 'username'
       })
       .expect('Content-type',/json/)
       .end(function(err,res){

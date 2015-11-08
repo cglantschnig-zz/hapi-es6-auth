@@ -34,6 +34,8 @@ export default function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
+        User.hasMany(models.RefreshToken);
+        User.hasMany(models.AccessToken);
       }
     },
     instanceMethods: {

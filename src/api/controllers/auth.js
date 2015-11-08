@@ -1,7 +1,8 @@
 import Joi from 'joi';
 import Boom from 'boom';
 import uuid from 'node-uuid';
-import { User } from '../../shared/models/';
+import config from '../../shared/config';
+import { User, AccessToken, RefreshToken } from '../../shared/models/';
 import {
   passwordTypeSchema,
   clientCredentialsTypeSchema,
@@ -27,12 +28,7 @@ export function authenticate(request, reply) {
   }
   promise = promise
     .then(function(userInstance) {
-      return {
-        token_type: 'Bearer',
-        access_token: uuid.v4(),
-        refresh_token: uuid.v4(),
-        expires_in: 3600
-      };
+      return createToken(userInstance);
     });
 
   reply(promise);
@@ -40,6 +36,31 @@ export function authenticate(request, reply) {
 
 function validatePasswordType() {
   return Promise.resolve();
+}
+
+/**
+ * invalidates the old tokens and create a new one for the given user
+ */
+function createToken(userInstance) {
+  return Promise
+    .all([
+      RefreshToken.destroy({ where: { UserId: userInstance.id }}),
+      AccessToken.destroy({ where: { UserId: userInstance.id }})
+    ])
+    .then(function() {
+      return Promise.all([
+        RefreshToken.create({ UserId: userInstance.id }),
+        AccessToken.create({ UserId: userInstance.id })
+      ])
+    })
+    .then(function(instances) {
+      return {
+        token_type: 'Bearer',
+        access_token: instances[1].token,
+        refresh_token: instances[0].token,
+        expires_in: config.token_validity
+      };
+    });
 }
 
 export function getAllUsers(request, reply) {
@@ -80,15 +101,7 @@ export function register(request, reply) {
       return userInstance.save();
     })
     .then(function(userInstance) {
-      return {
-        token_type: 'Bearer',
-        access_token: uuid.v4(),
-        refresh_token: uuid.v4(),
-        expires_in: 3600
-      };
-    })
-    .catch(function(err) {
-      console.log(err);
+      return createToken(userInstance);
     });
   reply(promise);
 }

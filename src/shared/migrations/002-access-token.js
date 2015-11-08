@@ -11,7 +11,7 @@ module.exports = {
         allowNull: false
       },
       expires_in: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DATE,
         allowNull: false
       },
       created_at: {
@@ -19,6 +19,13 @@ module.exports = {
       },
       updated_at: {
         type: DataTypes.DATE
+      },
+      UserId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: "Users",
+          key: "id"
+        }
       }
     });
   },

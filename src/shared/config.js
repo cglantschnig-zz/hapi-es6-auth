@@ -37,7 +37,9 @@ var config = {
       dbname:   process.env.DB_TEST_NAME,
       user:     process.env.DB_TEST_ENV_POSTGRES_USER,
       password: process.env.DB_TEST_ENV_POSTGRES_PASSWORD
-    }
+    },
+    token_validity: 1 * 60 * 60, // 1 hour
+    refresh_token_validity: 30 * 24 * 60 * 60 // 30 days 
 };
 
 // set the database which is about to be used

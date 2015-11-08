@@ -1,4 +1,5 @@
-'use strict';
+import guid from 'node-uuid';
+import config from '../config';
 
 export default function(sequelize, DataTypes) {
   var AccessToken = sequelize.define('AccessToken', {
@@ -10,17 +11,22 @@ export default function(sequelize, DataTypes) {
     },
     token: {
       type: DataTypes.UUID,
-      allowNull: false
+      allowNull: false,
+      defaultValue: guid.v4
     },
     expires_in: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: function() {
+        return new Date((new Date()).getTime() + config.token_validity);
+      }
     }
 
   },
   {
     classMethods: {
       associate: function(models) {
+        AccessToken.belongsTo(models.User);
       }
     }
   });

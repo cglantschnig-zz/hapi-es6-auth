@@ -90,4 +90,32 @@ describe('POST /api/v1/register', function() {
       });
   });
 
+  it('should have a password longer than 6 letters', function(done){
+    api
+      .post('/api/v1/register')
+      .send({
+        grant_type: 'password',
+        username: 'username',
+        password: 'a'
+      })
+      .end(function(err,res) {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+
+  it('should have a username longer than 6 letters', function(done){
+    api
+      .post('/api/v1/register')
+      .send({
+        grant_type: 'password',
+        username: 'a',
+        password: 'password'
+      })
+      .end(function(err,res) {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+
 });

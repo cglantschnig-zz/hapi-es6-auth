@@ -42,7 +42,7 @@ export default function(sequelize, DataTypes) {
 
         return hashWord(this.password, salt, 10000, 512)
           .then((derivedKey) => {
-            this.password = derivedKey;
+            this.password = derivedKey.toString('hex');
             this.salt = salt;
             return this;
           });

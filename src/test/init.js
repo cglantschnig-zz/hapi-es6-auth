@@ -1,13 +1,10 @@
-import supertest from 'supertest';
-import should from 'should';
+import requireDir from 'require-dir';
 import { ready } from '../api/api.js';
 import { up, dropTables } from '../shared/utils/migrate';
 import initialData from './initialData';
 
-// This agent refers to PORT where program is runninng.
 
-var api = supertest.agent('http://localhost:3000');
-var server;
+let server;
 
 /**
  * will get called by mocha before all tests start to run.
@@ -50,27 +47,7 @@ after(function(done) {
   }
 });
 
-// UNIT test begin
-
-describe('Basic Tests',function() {
-
-  // #1 should return home page
-
-  it('should create a user',function(done){
-
-    // calling home page api
-    api
-      .post('/api/v1/register')
-      .send({
-        email: 'test@mail.com',
-        password: 'password',
-        username: 'test'
-      })
-      .expect('Content-type',/json/)
-      .end(function(err,res){
-        res.status.should.equal(200);
-        done();
-      });
-  });
-
-});
+/**
+ * require all tests in specific folders to be running
+ */
+requireDir('./api', { recurse: true });

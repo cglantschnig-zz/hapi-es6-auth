@@ -79,8 +79,6 @@ export function register(request, reply) {
       return userInstance.save();
     })
     .then(function(userInstance) {
-      console.log(userInstance.password);
-      console.log(userInstance.salt);
       return {
         email: userInstance.email,
         username: userInstance.username

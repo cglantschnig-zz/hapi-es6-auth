@@ -21,13 +21,15 @@ Install [Docker Compose](http://docs.docker.com/compose/) on your system.
 First you need to run `docker-compose build` in order to build the docker files.
 Next you need `docker-compose up` to download the dependencies and run the linked
 containers. Your final command will decide if you run the application in normal mode,
-in development mode or if you want to run the tests.
+in development mode or if you want to run the tests. The option `--service-ports`
+exposes all ports in a run command, by default ports just get exposed by the command
+`docker-compose up`.
 
     # docker-compose build
     # docker-compose up -d
 
-    # docker-compose run web npm start
-    # docker-compose run web gulp
+    # docker-compose run --service-ports web npm start
+    # docker-compose run --service-ports web gulp
     # docker-compose run web npm test
 
 Now you can easily view the website at `http://localhost` on your host machine.

@@ -49,7 +49,7 @@ export function up() {
       if (pendingMigrations.length > 0) {
         return umzug.up();
       }
-      server.log('All migrations set!');
+      server.log('info', 'All migrations set!');
     });
 }
 
@@ -62,7 +62,7 @@ export function dropMigration() {
     .then(function (migrations) {
       // "migrations" will be an Array of already executed migrations.
       if (migrations.length === 0) {
-        server.log('Migration are already dropped!');
+        server.log('info', 'Migration are already dropped!');
         return;
       }
       return umzug.down({ to: migrations[0] });

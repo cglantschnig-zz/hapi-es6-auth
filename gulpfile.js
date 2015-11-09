@@ -1,12 +1,3 @@
-var gulp       = require('gulp');
-var nodemon    = require('gulp-nodemon');
+require('babel/register');
 
-gulp.task('restart-server', function () {
-  nodemon({
-    script: './src/api/index.js',
-    ext: 'js json',
-    legacyWatch: true
-  });
-});
-
-gulp.task('default', ['restart-server']);
+require('require-dir')('./src/gulptasks', { recurse: true });

@@ -1,7 +1,8 @@
-import supertest from 'supertest';
+import chai from 'chai';
+import chaiHttp from 'chai-http';
 
-// This agent refers to PORT where program is runninng.
-let api = supertest
-  .agent('http://localhost:3000');
+chai.use(chaiHttp);
 
-export default api;
+let agent = chai.request('http://localhost:3000');
+
+export default agent;

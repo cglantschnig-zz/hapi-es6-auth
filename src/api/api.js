@@ -3,7 +3,7 @@ import { union, values } from 'lodash';
 import promisify from 'es6-promisify';
 import config from '../shared/config';
 import models from '../shared/models/';
-import {up, dropTables} from '../shared/utils/migrate';
+import { up, dropTables } from '../shared/utils/migrate';
 
 export var server = new Hapi.Server();
 server.connection({
@@ -29,15 +29,21 @@ export var ready = register(require('./plugins'))
     return models.sequelize.authenticate();
   })
   .then(function() {
-    server.log('Connection to Database successfully tested!');
+    server.log('info', 'Connection to Database successfully tested!');
     return up();
   })
-  /*
   .then(function () {
-    return models.sequelize.sync();
+    return register(require('hapi-auth-bearer-token'));
   })
-  */
   .then(function () {
+
+    server.auth.strategy('simple', 'bearer-access-token', {
+        allowQueryToken: false,              // optional, true by default
+        allowMultipleHeaders: false,        // optional, false by default
+        accessTokenName: 'access_token',    // optional, 'access_token' by default
+        validateFunc: models.User.validateToken
+    });
+
     server.start(function () {
       server.log('info', 'Server running at: ' + server.info.uri);
     });

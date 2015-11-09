@@ -9,7 +9,8 @@
     "es6-promisify": "^3.0.0",
     "good": "^6.4.0",
     "good-console": "^5.1.0",
-    "hapi": "^11.0.0",
+    "hapi": "^11.1.0",
+    "hapi-auth-bearer-token": "^3.1.1",
     "joi": "^6.9.1",
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.3",
@@ -21,10 +22,10 @@
   },
   "devDependencies": {
     "chai": "^3.4.1",
+    "chai-http": "^1.0.0",
     "gulp": "^3.9.0",
     "gulp-nodemon": "^2.0.4",
-    "mocha": "^2.3.3",
-    "supertest": "^1.1.0"
+    "mocha": "^2.3.3"
   },
   "scripts": {
     "start": "node ./src/api/index.js",

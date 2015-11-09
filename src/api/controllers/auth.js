@@ -24,6 +24,10 @@ export function authenticate(request, reply) {
       schema = passwordTypeSchema;
       validateMethod = validatePasswordType;
       break;
+    case 'refresh_token':
+      schema = refreshTokenTypeSchema;
+      validateMethod = validateRefreshTokenType;
+      break;
     default:
       throw new Error('Invalid grant_type (' + request.payload.grant_type + ')');
   }
@@ -48,6 +52,32 @@ function checkSchema(payload, schema) {
     return Promise.reject(Boom.wrap(result.error, 400));
   }
   return Promise.resolve(result.value);
+}
+
+function validateRefreshTokenType(payload) {
+  return RefreshToken
+    .find({
+      where: {
+        token: payload.refresh_token
+      }
+    })
+    .then(function(refreshTokenInstance) {
+      if (!refreshTokenInstance) {
+        throw Boom.create(401, 'Invalid refresh token!');
+      }
+      return User
+        .find({
+          where: {
+            id: refreshTokenInstance.user_id
+          }
+        });
+    })
+    .then(function(userInstance) {
+      if (!userInstance) {
+        throw Boom.create(404, 'User not found!');
+      }
+      return userInstance;
+    });
 }
 
 function validatePasswordType(payload) {
@@ -83,15 +113,15 @@ function validatePasswordType(payload) {
 function createToken(userInstance) {
   return Promise
     .all([
-      RefreshToken.destroy({ where: { UserId: userInstance.id }}),
-      AccessToken.destroy({ where: { UserId: userInstance.id }}),
+      RefreshToken.destroy({ where: { user_id: userInstance.id }}),
+      AccessToken.destroy({ where: { user_id: userInstance.id }}),
       RefreshToken.clear(),
       AccessToken.clear()
     ])
     .then(function() {
       return Promise.all([
-        RefreshToken.create({ UserId: userInstance.id }),
-        AccessToken.create({ UserId: userInstance.id })
+        RefreshToken.create({ user_id: userInstance.id }),
+        AccessToken.create({ user_id: userInstance.id })
       ])
     })
     .then(function(instances) {

@@ -20,7 +20,7 @@ module.exports = {
       updated_at: {
         type: DataTypes.DATE
       },
-      UserId: {
+      user_id: {
         type: DataTypes.INTEGER,
         references: {
           model: "Users",

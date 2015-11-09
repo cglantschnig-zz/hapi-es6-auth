@@ -26,7 +26,7 @@ export default function(sequelize, DataTypes) {
   {
     classMethods: {
       associate: function(models) {
-        RefreshToken.belongsTo(models.User);
+        RefreshToken.belongsTo(models.User, { foreign_key: 'user_id' });
       },
       clear: function() {
         return RefreshToken

@@ -13,7 +13,7 @@ export var authenticationSchema = Joi
   .object()
   .unknown(true)
   .keys({
-    grant_type: Joi.string().valid('password', 'refresh_token').required()
+    grant_type: Joi.string().lower().valid('password', 'refresh_token').required()
   });
 
 export var passwordTypeSchema = authenticationSchema

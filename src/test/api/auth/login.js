@@ -5,7 +5,7 @@ let expect = chai.expect;
 
 describe('POST /api/v1/auth/token', function() {
 
-  it('should get a token for a valid username/password',function(done){
+  it('should get a token for a valid username/password', function(done){
     api
       .post('/api/v1/auth/token')
       .send({
@@ -41,7 +41,7 @@ describe('POST /api/v1/auth/token', function() {
       });
   });
 
-  it('should accept an login with uppercase letters email',function(done){
+  it('should accept an login with uppercase letters email', function(done){
     api
       .post('/api/v1/auth/token')
       .send({
@@ -59,7 +59,36 @@ describe('POST /api/v1/auth/token', function() {
       });
   });
 
-  it('should accept an login with uppercase letters username',function(done){
+  it('should create an new account and then be able to login into it', function(done) {
+    api
+      .post('/api/v1/register')
+      .send({
+        username: 'testuser',
+        password: 'password',
+        email: 'testuser@test.com'
+      })
+      .then(function(res) {
+        expect(res.status).to.equal(200);
+        return api
+          .post('/api/v1/auth/token')
+          .send({
+            grant_type: 'password',
+            username: 'testuser',
+            password: 'password'
+          });
+      })
+      .then(function(res) {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.ownProperty('token_type');
+        expect(res.body).to.have.ownProperty('access_token');
+        expect(res.body).to.have.ownProperty('refresh_token');
+        expect(res.body).to.have.ownProperty('expires_in');
+        done();
+      })
+      .catch(done);
+  });
+
+  it('should accept an login with uppercase letters username', function(done){
     api
       .post('/api/v1/auth/token')
       .send({
@@ -118,7 +147,7 @@ describe('POST /api/v1/auth/token', function() {
       });
   });
 
-  it('should have status 400 for missing password',function(done){
+  it('should have status 400 for missing password', function(done){
     api
       .post('/api/v1/auth/token')
       .send({

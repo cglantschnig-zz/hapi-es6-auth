@@ -38,6 +38,29 @@ Now you can easily view the website at `http://localhost` on your host machine.
 
 [View the License](LICENSE)
 
+## Todo List
+
+The points below are the current todo list. Feel free to add points.
+
+ - [x] basic test setup
+ - [x] docker environment
+ - [x] migrations
+ - [x] register user
+ - [x] login user (refresh_token and password credentials)
+ - [ ] Test Data loading with dependencies instead of order
+ - [ ] facebook login
+ - [ ] twitter login
+ - [ ] facebook register
+ - [ ] twitter register
+ - [ ] password reset function
+ - [ ] admin password reset
+ - [ ] email notification for password reset
+ - [ ] postman collection
+ - [ ] token with permission
+ - [ ] token for devices
+ - [ ] keep login history
+ - [ ] user account history
+
 ## Contribution
 
 Feel free to fork and make pull requests! I am very happy to see new stuff and

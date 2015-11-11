@@ -60,6 +60,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] token for devices
  - [ ] keep login history
  - [ ] user account history
+ - [ ] change promises with async/await
 
 ## Contribution
 

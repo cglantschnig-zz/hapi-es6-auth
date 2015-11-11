@@ -39,21 +39,6 @@ export default function(sequelize, DataTypes) {
       associate: function(models) {
         User.hasMany(models.RefreshToken);
         User.hasMany(models.AccessToken);
-      },
-      validateToken: function( token, callback ) {
-
-          console.log(token);
-          // For convenience, the request object can be accessed
-          // from `this` within validateFunc.
-          var request = this;
-
-          // Use a real strategy here,
-          // comparing with a token from your database for example
-          if(token === "1234"){
-              callback(null, true, { token: token })
-          } else {
-              callback(null, false, { token: token })
-          }
       }
     },
     instanceMethods: {

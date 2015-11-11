@@ -1,4 +1,5 @@
 import Boom from 'boom';
+import config from '../../shared/config';
 import { Sequelize, RefreshToken, AccessToken, User } from '../../shared/models/';
 
 
@@ -89,4 +90,29 @@ export function createToken(userInstance) {
         expires_in: config.token_validity
       };
     });
+}
+
+/**
+ * validates a given access token and adds the userInstance to the request object
+ */
+export function validateToken(token, callback) {
+    User
+      .find({
+        include: [
+          {
+            model: AccessToken,
+            where: {
+              token: token
+            }
+          }
+        ]
+      })
+      .then(function(userInstance) {
+        if (!userInstance) {
+          return callback(null, false, { token: token });
+        }
+        return callback(null, true, {
+          user: userInstance
+        });
+      });
 }

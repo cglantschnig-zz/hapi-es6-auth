@@ -3,7 +3,7 @@
  */
 import * as controller from '../controllers/auth';
 import { tokenSchema, authenticationSchema } from '../schema/authSchema';
-import { userRegisterSchema } from '../schema/userSchema';
+import { userRegisterSchema, resetPasswordSchema } from '../schema/userSchema';
 
 
 var routes = [
@@ -39,6 +39,17 @@ var routes = [
     method: 'GET',
     path: '/api/v1/users',
     handler: controller.getAllUsers
+  },
+  {
+    method: 'POST',
+    path: '/api/v1/reset-password',
+    handler: controller.resetPassword,
+    config: {
+      auth: 'simple',
+      validate: {
+        payload: resetPasswordSchema
+      }
+    }
   }
 ];
 

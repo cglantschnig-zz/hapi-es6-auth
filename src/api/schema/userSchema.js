@@ -7,3 +7,10 @@ export var userRegisterSchema = Joi
     username: Joi.string().min(6).required(),
     password: Joi.string().min(6).required(),
   });
+
+export var resetPasswordSchema = Joi
+  .object()
+  .keys({
+    oldPassword: Joi.string().min(6).required(),
+    newPassword: Joi.string().min(6).required()
+  });

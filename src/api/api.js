@@ -4,6 +4,7 @@ import promisify from 'es6-promisify';
 import config from '../shared/config';
 import models from '../shared/models/';
 import { up, dropTables } from '../shared/utils/migrate';
+import { validateToken } from './utils/auth';
 
 export var server = new Hapi.Server();
 server.connection({
@@ -20,7 +21,6 @@ if (config.environment === 'test') {
 let unformatedRoutes = require('require-dir')('./routes');
 let routes = union(...values(unformatedRoutes));
 
-server.route(routes);
 
 let register = promisify(server.register.bind(server));
 
@@ -41,8 +41,10 @@ export var ready = register(require('./plugins'))
         allowQueryToken: false,              // optional, true by default
         allowMultipleHeaders: false,        // optional, false by default
         accessTokenName: 'access_token',    // optional, 'access_token' by default
-        validateFunc: models.User.validateToken
+        validateFunc: validateToken
     });
+
+    server.route(routes);
 
     server.start(function () {
       server.log('info', 'Server running at: ' + server.info.uri);
@@ -52,5 +54,9 @@ export var ready = register(require('./plugins'))
   .catch(function(error) {
     console.error(error);
   });
+
+process.on('uncaughtException', function(err) {
+  console.error('Caught exception: ', err);
+});
 
 export default server;

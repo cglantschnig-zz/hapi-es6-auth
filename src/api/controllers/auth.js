@@ -1,14 +1,8 @@
-import Joi from 'joi';
 import Boom from 'boom';
-import uuid from 'node-uuid';
-import promisify from 'es6-promisify';
-import config from '../../shared/config';
-import { Sequelize, User, AccessToken, RefreshToken } from '../../shared/models/';
-import {
-  passwordTypeSchema,
-  clientCredentialsTypeSchema,
-  refreshTokenTypeSchema
-} from '../schema/authSchema';
+import { Sequelize, User } from '../../shared/models/';
+import { checkSchema } from '../utils/schemaHelper';
+import { validateRefreshTokenType, validatePasswordType, createToken } from '../utils/auth';
+import { passwordTypeSchema, refreshTokenTypeSchema } from '../schema/authSchema';
 
 /**
  * This function is about to authenticate the user. It returns an access token.
@@ -46,96 +40,6 @@ export function authenticate(request, reply) {
   reply(promise);
 }
 
-function checkSchema(payload, schema) {
-  let result = Joi.validate(payload, schema);
-  if (result.error) {
-    return Promise.reject(Boom.wrap(result.error, 400));
-  }
-  return Promise.resolve(result.value);
-}
-
-function validateRefreshTokenType(payload) {
-  return RefreshToken
-    .find({
-      where: {
-        token: payload.refresh_token
-      }
-    })
-    .then(function(refreshTokenInstance) {
-      if (!refreshTokenInstance) {
-        throw Boom.create(401, 'Invalid refresh token!');
-      }
-      return User
-        .find({
-          where: {
-            id: refreshTokenInstance.user_id
-          }
-        });
-    })
-    .then(function(userInstance) {
-      if (!userInstance) {
-        throw Boom.create(404, 'User not found!');
-      }
-      return userInstance;
-    });
-}
-
-function validatePasswordType(payload) {
-  return User
-    .find({
-      where: {
-        $or: [
-          {
-            email: payload.username.toLowerCase()
-          },
-          Sequelize.where(Sequelize.fn('lower', Sequelize.col('username')), Sequelize.fn('lower', payload.username))
-        ]
-      }
-    })
-    .then(function(userInstance) {
-      if (!userInstance) {
-        throw Boom.create(404, 'No user with the given username found!');
-      }
-      return userInstance
-        .comparePassword(payload.password)
-        .then(function(samePasswords) {
-          if (!samePasswords) {
-            throw Boom.create(401, 'Wrong Password!');
-          }
-          return userInstance;
-        });
-    });
-}
-
-/**
- * invalidates the old tokens and create a new one for the given user
- */
-function createToken(userInstance) {
-  return Promise
-    .all([
-      RefreshToken.destroy({ where: { user_id: userInstance.id }}),
-      AccessToken.destroy({ where: { user_id: userInstance.id }}),
-      RefreshToken.clear(),
-      AccessToken.clear()
-    ])
-    .then(function() {
-      return Promise.all([
-        RefreshToken.create({ user_id: userInstance.id }),
-        AccessToken.create({ user_id: userInstance.id })
-      ])
-    })
-    .then(function(instances) {
-      return {
-        token_type: 'Bearer',
-        access_token: instances[1].token,
-        refresh_token: instances[0].token,
-        expires_in: config.token_validity
-      };
-    })
-    .catch(function(err) {
-      console.log(err);
-    });
-}
 
 export function getAllUsers(request, reply) {
   var promise = User.findAll();

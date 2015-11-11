@@ -52,7 +52,8 @@ The points below are the current todo list. Feel free to add points.
  - [ ] twitter login
  - [ ] facebook register
  - [ ] twitter register
- - [ ] password reset function
+ - [x] password reset function
+ - [ ] forgot password function
  - [ ] admin password reset
  - [ ] email notification for password reset
  - [ ] postman collection

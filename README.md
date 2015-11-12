@@ -1,5 +1,7 @@
 # hapi-es6-auth
 
+[![Circle CI](https://circleci.com/gh/cglantschnig/hapi-es6-auth/tree/master.svg?style=shield)](https://circleci.com/gh/cglantschnig/hapi-es6-auth/tree/master)
+
 A sample application with basic login. This project is using oauth2 Authentication
 and a regular Postgres database.
 

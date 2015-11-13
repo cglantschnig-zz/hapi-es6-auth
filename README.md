@@ -64,7 +64,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] keep login history
  - [ ] user account history
  - [ ] change promises with async/await
- - [x] travis-cl integration when changes appear in master branch
+ - [x] continious integration when changes appear in master branch
 
 ## Contribution
 

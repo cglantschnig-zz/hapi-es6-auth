@@ -50,10 +50,14 @@ The points below are the current todo list. Feel free to add points.
  - [x] register user
  - [x] login user (refresh_token and password credentials)
  - [ ] Test Data loading with dependencies instead of order
- - [ ] facebook login
- - [ ] twitter login
- - [ ] facebook register
- - [ ] twitter register
+ - [ ] facebook login (web)
+ - [ ] facebook login (mobile)
+ - [ ] twitter login (web)
+ - [ ] twitter login (mobile)
+ - [ ] facebook register (web)
+ - [ ] facebook register (mobile)
+ - [ ] twitter register (web)
+ - [ ] twitter register (mobile)
  - [x] password reset function
  - [ ] forgot password function
  - [ ] admin password reset

@@ -14,8 +14,9 @@ let pluginList = [
         // All the possible roles. Defaults to SUPER_ADMIN, ADMIN, USER, GUEST.
         // Can be set to false if no hierarchy is being used. by setting to
         // false you do not need to know all the potential roles
+        // You can also pass a function, which returns the desired values
         roles: ['user', 'admin'],
-        
+
         // An option to turn on or off hierarchy. Defaults to false
         hierarchy: false,
 

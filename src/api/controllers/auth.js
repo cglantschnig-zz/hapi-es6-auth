@@ -41,14 +41,6 @@ export function authenticate(request, reply) {
   reply(promise);
 }
 
-
-
-
-export function getAllUsers(request, reply) {
-  var promise = User.findAll();
-  reply(promise);
-}
-
 /**
  * This call is creating a new user account.
  * 1. we check if there is already a user with the given username/email

@@ -34,11 +34,6 @@ var routes = [
         schema: tokenSchema
       }
     }
-  },
-  {
-    method: 'GET',
-    path: '/api/v1/users',
-    handler: controller.getAllUsers
   }
 ];
 

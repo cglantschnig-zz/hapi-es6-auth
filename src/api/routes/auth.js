@@ -3,7 +3,7 @@
  */
 import * as controller from '../controllers/auth';
 import { tokenSchema, authenticationSchema } from '../schema/authSchema';
-import { userRegisterSchema, resetPasswordSchema } from '../schema/userSchema';
+import { userRegisterSchema } from '../schema/userSchema';
 
 
 var routes = [
@@ -39,24 +39,6 @@ var routes = [
     method: 'GET',
     path: '/api/v1/users',
     handler: controller.getAllUsers
-  },
-  {
-    method: 'POST',
-    path: '/api/v1/reset-password',
-    handler: controller.resetPassword,
-    config: {
-      auth: {
-        strategies: ['simple']
-      },
-      plugins: {
-        hapiAuthorization: {
-          roles: ['user']
-        }
-      },
-      validate: {
-        payload: resetPasswordSchema
-      }
-    }
   }
 ];
 

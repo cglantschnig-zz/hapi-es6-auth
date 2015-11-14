@@ -50,7 +50,6 @@ The points below are the current todo list. Feel free to add points.
  - [ ] facebook/twitter login for mobile and web
  - [ ] forgot password function (with email notification)
  - [ ] admin password reset
- - [ ] postman collection
  - [ ] token for devices
  - [ ] user account history
  - [ ] change promises with async/await

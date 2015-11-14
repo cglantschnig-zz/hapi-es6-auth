@@ -1,6 +1,6 @@
 {
   "name": "hapi-es6-auth",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "a sample project with hapi/babel/postgres/...",
   "main": "./src/api/index.js",
   "dependencies": {

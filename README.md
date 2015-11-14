@@ -1,9 +1,15 @@
 # hapi-es6-auth
 
-[![Circle CI](https://circleci.com/gh/cglantschnig/hapi-es6-auth/tree/master.svg?style=shield)](https://circleci.com/gh/cglantschnig/hapi-es6-auth/tree/master)
+[![build](https://circleci.com/gh/cglantschnig/hapi-es6-auth/tree/master.svg?style=shield)](https://circleci.com/gh/cglantschnig/hapi-es6-auth/tree/master)
 
-A sample application with basic login. This project is using oauth2 Authentication
-and a regular Postgres database.
+A sample application which shows how to handle authentication with custom authorization.
+The system is build on an docker environment for easy setup and use.
+
+Here a list of implemented features and tested:
+
+* Token authentication (with roles to auhorize)
+* Account registration
+* Password reset function
 
 ## Prerequisites
 
@@ -36,39 +42,22 @@ exposes all ports in a run command, by default ports just get exposed by the com
 
 Now you can easily view the website at `http://localhost` on your host machine.
 
-## License
-
-[View the License](LICENSE)
-
 ## Todo List
 
 The points below are the current todo list. Feel free to add points.
 
- - [x] basic test setup
- - [x] docker environment
- - [x] migrations
- - [x] register user
- - [x] login user (refresh_token and password credentials)
  - [ ] Test Data loading with dependencies instead of order
- - [ ] facebook login (web)
- - [ ] facebook login (mobile)
- - [ ] twitter login (web)
- - [ ] twitter login (mobile)
- - [ ] facebook register (web)
- - [ ] facebook register (mobile)
- - [ ] twitter register (web)
- - [ ] twitter register (mobile)
- - [x] password reset function
- - [ ] forgot password function
+ - [ ] facebook/twitter login for mobile and web
+ - [ ] forgot password function (with email notification)
  - [ ] admin password reset
- - [ ] email notification for password reset
  - [ ] postman collection
- - [ ] token with permission
  - [ ] token for devices
- - [ ] keep login history
  - [ ] user account history
  - [ ] change promises with async/await
- - [x] continious integration when changes appear in master branch
+
+## License
+
+ [View the License](LICENSE)
 
 ## Contribution
 

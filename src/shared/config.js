@@ -23,6 +23,12 @@ var config = {
   host: process.env.APP_HOST || '0.0.0.0',
   port: process.env.APP_PORT || 3000,
   base_path: path.join(__dirname, '../'), // ~/src/
+  mail: {
+    service: process.env.MAIL_SERVICE || 'gmail',
+    username: process.env.MAIL_USERNAME,
+    password: process.env.MAIL_PASSWORD,
+    from_address: process.env.MAIL_FROM_ADDRESS
+  },
   api_database: {
     version:  process.env.DB_ENV_PG_MAJOR,
     lang:     process.env.DB_ENV_LANG,

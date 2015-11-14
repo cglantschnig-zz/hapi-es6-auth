@@ -35,6 +35,12 @@ export default function(sequelize, DataTypes) {
     role: {
       type: DataTypes.ENUM,
       values: ['user', 'admin']
+    },
+    resetToken: {
+      type: DataTypes.STRING
+    },
+    resetTokenValidity: {
+      type: DataTypes.DATE
     }
 
   },

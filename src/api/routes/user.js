@@ -2,7 +2,7 @@
  * Routes about the user obejct
  */
 import * as controller from '../controllers/user';
-import { resetPasswordSchema } from '../schema/userSchema';
+import { resetPasswordSchema, forgotPasswordSchema, forgotPasswordResponseSchema } from '../schema/userSchema';
 
 
 var routes = [
@@ -16,11 +16,25 @@ var routes = [
       },
       plugins: {
         hapiAuthorization: {
-          roles: ['user']
+          roles: ['user', 'admin']
         }
       },
       validate: {
         payload: resetPasswordSchema
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/api/v1/forgot-password',
+    handler: controller.forgotPassword,
+    config: {
+      auth: false,
+      validate: {
+        payload: forgotPasswordSchema
+      },
+      response: {
+        schema: forgotPasswordResponseSchema
       }
     }
   }

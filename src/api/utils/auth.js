@@ -80,7 +80,7 @@ export function createToken(userInstance) {
       return Promise.all([
         RefreshToken.create({ user_id: userInstance.id }),
         AccessToken.create({ user_id: userInstance.id })
-      ])
+      ]);
     })
     .then(function(instances) {
       return {
@@ -96,23 +96,24 @@ export function createToken(userInstance) {
  * validates a given access token and adds the userInstance to the request object
  */
 export function validateToken(token, callback) {
-    User
-      .find({
-        include: [
-          {
-            model: AccessToken,
-            where: {
-              token: token
-            }
+  User
+    .find({
+      include: [
+        {
+          model: AccessToken,
+          where: {
+            token: token
           }
-        ]
-      })
-      .then(function(userInstance) {
-        if (!userInstance) {
-          return callback(null, false, { token: token });
         }
-        return callback(null, true, {
-          user: userInstance
-        });
+      ]
+    })
+    .then(function(userInstance) {
+      if (!userInstance) {
+        return callback(null, false, { token: token });
+      }
+      return callback(null, true, {
+        user: userInstance,
+        role: userInstance.role
       });
+    });
 }

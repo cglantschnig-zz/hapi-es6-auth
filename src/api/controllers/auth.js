@@ -1,4 +1,5 @@
 import Boom from 'boom';
+import { assign } from 'lodash';
 import { Sequelize, User } from '../../shared/models/';
 import { checkSchema } from '../utils/schemaHelper';
 import { validateRefreshTokenType, validatePasswordType, createToken } from '../utils/auth';
@@ -94,7 +95,10 @@ export function register(request, reply) {
       if (userInstance) {
         throw Boom.create(409, "Username or Email are already used");
       }
-      return User.build(request.payload).hashPassword();
+      var user = assign(request.payload, {
+        role: 'user'
+      });
+      return User.build(user).hashPassword();
     })
     .then(function(userInstance) {
       return userInstance.save();

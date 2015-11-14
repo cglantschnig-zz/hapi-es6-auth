@@ -45,7 +45,14 @@ var routes = [
     path: '/api/v1/reset-password',
     handler: controller.resetPassword,
     config: {
-      auth: 'simple',
+      auth: {
+        strategies: ['simple']
+      },
+      plugins: {
+        hapiAuthorization: {
+          roles: ['user']
+        }
+      },
       validate: {
         payload: resetPasswordSchema
       }

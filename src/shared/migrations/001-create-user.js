@@ -22,6 +22,10 @@ module.exports = {
         type: DataTypes.STRING(512),
         allowNull: false
       },
+      role: {
+        type: DataTypes.ENUM,
+        values: ['user', 'admin']
+      },
       created_at: {
         type: DataTypes.DATE
       },

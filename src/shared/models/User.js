@@ -31,6 +31,10 @@ export default function(sequelize, DataTypes) {
     salt: {
       type: DataTypes.STRING(512),
       allowNull: false
+    },
+    role: {
+      type: DataTypes.ENUM,
+      values: ['user', 'admin']
     }
 
   },

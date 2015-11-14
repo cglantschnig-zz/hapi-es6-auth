@@ -33,9 +33,6 @@ export var ready = register(require('./plugins'))
     return up();
   })
   .then(function () {
-    return register(require('hapi-auth-bearer-token'));
-  })
-  .then(function () {
 
     server.auth.strategy('simple', 'bearer-access-token', {
         allowQueryToken: false,              // optional, true by default
@@ -50,9 +47,6 @@ export var ready = register(require('./plugins'))
       server.log('info', 'Server running at: ' + server.info.uri);
     });
     return server;
-  })
-  .catch(function(error) {
-    console.error(error);
   });
 
 process.on('uncaughtException', function(err) {

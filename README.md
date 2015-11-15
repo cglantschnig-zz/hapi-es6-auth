@@ -11,6 +11,7 @@ Here a list of implemented features and tested:
 * Account registration
 * Password reset function
 * Forgot password (with sending an email)
+* set password as admin
 
 ## Prerequisites
 
@@ -49,7 +50,6 @@ The points below are the current todo list. Feel free to add points.
 
  - [ ] Test Data loading with dependencies instead of order
  - [ ] facebook/twitter login for mobile and web
- - [ ] admin password reset
  - [ ] token for devices
  - [ ] user account history
  - [ ] change promises with async/await

@@ -10,6 +10,7 @@ Here a list of implemented features and tested:
 * Token authentication (with roles to auhorize)
 * Account registration
 * Password reset function
+* Forgot password (with sending an email)
 
 ## Prerequisites
 
@@ -48,7 +49,6 @@ The points below are the current todo list. Feel free to add points.
 
  - [ ] Test Data loading with dependencies instead of order
  - [ ] facebook/twitter login for mobile and web
- - [ ] forgot password function (with email notification)
  - [ ] admin password reset
  - [ ] token for devices
  - [ ] user account history

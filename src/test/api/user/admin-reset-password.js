@@ -69,7 +69,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
 
   it('should return 400 for a too short password', function(done) {
     api
-      .post('/api/v1/users/10003/change-password')
+      .patch('/api/v1/users/10003/change-password')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')
       .send({
         newPassword: 'pass'

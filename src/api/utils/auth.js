@@ -108,7 +108,8 @@ export function validateToken(token, callback) {
       ]
     })
     .then(function(userInstance) {
-      if (!userInstance) {
+      // if there is no user or the user is inactive do not allow to enter
+      if (!userInstance || !userInstance.isActive) {
         return callback(null, false, { token: token });
       }
       return callback(null, true, {

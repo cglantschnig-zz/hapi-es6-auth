@@ -32,6 +32,12 @@ export function authenticate(request, reply) {
       return validateMethod(request.payload);
     })
     .then(function(userInstance) {
+      if (!userInstance.isActive) {
+        throw Boom.create(423, 'User is inactive!');
+      }
+      return userInstance;
+    })
+    .then(function(userInstance) {
       return createToken(userInstance);
     })
     .catch(function(err) {

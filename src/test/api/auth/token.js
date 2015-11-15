@@ -19,6 +19,19 @@ describe('POST /api/v1/auth/token', function() {
         });
     });
 
+    it('should have status 423 for inactive user',function(done) {
+      api
+        .post('/api/v1/auth/token')
+        .send({
+          refresh_token: '2f976bd9-b982-4276-8783-2fc9e175dc4a',
+          grant_type: 'refresh_token'
+        })
+        .end(function(err,res) {
+          expect(res.status).to.equal(423);
+          done();
+        });
+    });
+
     it('should get a token for a valid refresh_token', function(done) {
       api
         .post('/api/v1/auth/token')
@@ -100,6 +113,20 @@ describe('POST /api/v1/auth/token', function() {
           expect(res.body).to.have.ownProperty('access_token');
           expect(res.body).to.have.ownProperty('refresh_token');
           expect(res.body).to.have.ownProperty('expires_in');
+          done();
+        });
+    });
+
+    it('should have status 423 for inactive user',function(done) {
+      api
+        .post('/api/v1/auth/token')
+        .send({
+          password: 'password',
+          username: 'user3@test.com',
+          grant_type: 'password'
+        })
+        .end(function(err,res) {
+          expect(res.status).to.equal(423);
           done();
         });
     });

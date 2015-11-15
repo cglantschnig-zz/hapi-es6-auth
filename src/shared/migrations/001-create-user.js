@@ -26,6 +26,11 @@ module.exports = {
         type: DataTypes.ENUM,
         values: ['user', 'admin']
       },
+      isActive: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+        allowNull: false
+      },
       resetToken: {
         type: DataTypes.STRING
       },

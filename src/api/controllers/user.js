@@ -68,7 +68,9 @@ export function forgotPassword(request, reply) {
  * sets a new password with a given token.
  * 1. checks if there is a valid user with the given token
  * 2. see if the token is still valid
- * 3. logs in the user and returns new valid token
+ * 3. sets the new password (and hashes it)
+ * 4. unsets the current reset token
+ * 5. logs in the user and returns new valid token
  */
 export function setForgottenPassword(request, reply) {
   let promise = User
@@ -96,6 +98,36 @@ export function setForgottenPassword(request, reply) {
     })
     .then(function(userInstance) {
       return createToken(userInstance);
+    });
+  reply(promise);
+}
+
+/**
+ * sets a new password for a user.
+ * this function can just be called as an admin user
+ */
+export function setPasswordForced(request, reply) {
+  let promise = User
+    .find({
+      where: {
+        id: request.params.user_id
+      }
+    })
+    .then(function(userInstance) {
+      if (!userInstance) {
+        throw Boom.create(404, 'User not found!');
+      }
+      if (userInstance.role === 'admin') {
+        throw Boom.create(403, 'You are not allowed to change another admins password');
+      }
+      userInstance.password = request.payload.newPassword;
+      return userInstance.hashPassword();
+    })
+    .then(function(userInstance) {
+      return userInstance.save();
+    })
+    .then(function(userInstance) {
+      return {};
     });
   reply(promise);
 }

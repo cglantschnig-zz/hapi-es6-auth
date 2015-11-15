@@ -6,7 +6,8 @@ import {
   resetPasswordSchema,
   forgotPasswordSchema,
   forgotPasswordResponseSchema,
-  changePasswordWithTokenSchema } from '../schema/userSchema';
+  changePasswordWithTokenSchema,
+  changePasswordAsAdminSchema } from '../schema/userSchema';
 import { tokenSchema } from '../schema/authSchema';
 
 
@@ -54,6 +55,24 @@ var routes = [
       },
       response: {
         schema: tokenSchema
+      }
+    }
+  },
+  {
+    method: 'POST',
+    path: '/api/v1/users/{user_id}/change-password',
+    handler: controller.setPasswordForced,
+    config: {
+      auth: {
+        strategies: ['simple']
+      },
+      plugins: {
+        hapiAuthorization: {
+          roles: ['admin']
+        }
+      },
+      validate: {
+        payload: changePasswordAsAdminSchema
       }
     }
   }

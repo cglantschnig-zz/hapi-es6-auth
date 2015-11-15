@@ -33,3 +33,9 @@ export var changePasswordWithTokenSchema = Joi
     resetToken: Joi.string().required(),
     newPassword: Joi.string().min(6).required()
   });
+
+export var changePasswordAsAdminSchema = Joi
+  .object()
+  .keys({
+    newPassword: Joi.string().min(6).required()
+  });

@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import Boom from 'boom';
 import { Sequelize, User } from '../../shared/models/';
 import MailService from '../../shared/services/MailService';
+import { createToken } from '../utils/auth';
 
 
 /**
@@ -59,6 +60,42 @@ export function forgotPassword(request, reply) {
       return {
         resetTokenValidity: userInstance.resetTokenValidity
       };
+    });
+  reply(promise);
+}
+
+/**
+ * sets a new password with a given token.
+ * 1. checks if there is a valid user with the given token
+ * 2. see if the token is still valid
+ * 3. logs in the user and returns new valid token
+ */
+export function setForgottenPassword(request, reply) {
+  let promise = User
+    .find({
+      where: {
+        resetToken: request.payload.resetToken,
+        resetTokenValidity: {
+          $gt: new Date()
+        }
+      }
+    })
+    .then(function(userInstance) {
+      if (!userInstance) {
+        throw Boom.create(404, 'No User found!');
+      }
+      // set the new password and hash the password
+      userInstance.password = request.payload.newPassword;
+      return userInstance.hashPassword();
+    })
+    .then(function(userInstance) {
+      // remove the reset token
+      userInstance.resetToken = null;
+      userInstance.resetTokenValidity = null;
+      return userInstance.save();
+    })
+    .then(function(userInstance) {
+      return createToken(userInstance);
     });
   reply(promise);
 }

@@ -26,3 +26,10 @@ export var forgotPasswordResponseSchema = Joi
   .keys({
     resetTokenValidity: Joi.date().required()
   });
+
+export var changePasswordWithTokenSchema = Joi
+  .object()
+  .keys({
+    resetToken: Joi.string().required(),
+    newPassword: Joi.string().min(6).required()
+  });

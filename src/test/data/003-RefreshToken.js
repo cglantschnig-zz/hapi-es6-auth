@@ -10,6 +10,11 @@ let data = [
     "user_id": 10002,
     "token": "74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0",
     "expires_in": new Date((new Date()).getTime() + 600 * 24 * 60 * 60)
+  },
+  {
+    "user_id": 10003,
+    "token": "f97ab020-2261-4764-966c-0b7f7c726c98",
+    "expires_in": new Date((new Date()).getTime() + 600 * 24 * 60 * 60)
   }
 ];
 

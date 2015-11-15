@@ -6,7 +6,7 @@ let expect = chai.expect;
 
 describe('POST /api/v1/forgot-password', function() {
 
-  it('should send an forget password email',function(done){
+  it('should send an forget password email', function(done){
     api
       .post('/api/v1/forgot-password')
       .send({
@@ -19,7 +19,7 @@ describe('POST /api/v1/forgot-password', function() {
       });
   });
 
-  it('should return 404 if there is no user with the given email',function(done){
+  it('should return 404 if there is no user with the given email', function(done) {
     api
       .post('/api/v1/forgot-password')
       .send({
@@ -31,7 +31,7 @@ describe('POST /api/v1/forgot-password', function() {
       });
   });
 
-  it('should return 400 if no email was sent',function(done){
+  it('should return 400 if no email was sent', function(done) {
     api
       .post('/api/v1/forgot-password')
       .send({ })

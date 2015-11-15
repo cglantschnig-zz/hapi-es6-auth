@@ -2,7 +2,12 @@
  * Routes about the user obejct
  */
 import * as controller from '../controllers/user';
-import { resetPasswordSchema, forgotPasswordSchema, forgotPasswordResponseSchema } from '../schema/userSchema';
+import {
+  resetPasswordSchema,
+  forgotPasswordSchema,
+  forgotPasswordResponseSchema,
+  changePasswordWithTokenSchema } from '../schema/userSchema';
+import { tokenSchema } from '../schema/authSchema';
 
 
 var routes = [
@@ -35,6 +40,20 @@ var routes = [
       },
       response: {
         schema: forgotPasswordResponseSchema
+      }
+    }
+  },
+  {
+    method: 'PATCH',
+    path: '/api/v1/forgot-password',
+    handler: controller.setForgottenPassword,
+    config: {
+      auth: false,
+      validate: {
+        payload: changePasswordWithTokenSchema
+      },
+      response: {
+        schema: tokenSchema
       }
     }
   }

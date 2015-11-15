@@ -53,6 +53,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] token for devices
  - [ ] user account history
  - [ ] change promises with async/await
+ - [ ] add api documentation as markdown
 
 ## License
 

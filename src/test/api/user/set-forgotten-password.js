@@ -6,8 +6,8 @@ let expect = chai.expect;
 
 describe('PATCH /api/v1/forgot-password', function() {
 
-  it('should call the password forgotten and reset the password', function(done) {
-    api
+  it('should call the password forgotten and reset the password', function() {
+    return api
       .patch('/api/v1/forgot-password')
       .send({
         resetToken: '111222333',
@@ -25,57 +25,52 @@ describe('PATCH /api/v1/forgot-password', function() {
       })
       .then(function(res) {
         expect(res.status).to.equal(200);
-        done();
       });
   });
 
-  it('should return 404 if the token is not valid anymore', function(done){
-    api
+  it('should return 404 if the token is not valid anymore', function() {
+    return api
       .patch('/api/v1/forgot-password')
       .send({
         resetToken: '12345678',
         newPassword: 'password'
       })
-      .end(function(err,res) {
+      .then(function(res) {
         expect(res.status).to.equal(404);
-        done();
       });
   });
 
-  it('should return 404 if there is no user with the given email', function(done) {
-    api
+  it('should return 404 if there is no user with the given email', function() {
+    return api
       .patch('/api/v1/forgot-password')
       .send({
         resetToken: 'invalidtoken',
         newPassword: 'password'
       })
-      .end(function(err,res) {
+      .then(function(res) {
         expect(res.status).to.equal(404);
-        done();
       });
   });
 
-  it('should return 400 if no resetToken was sent', function(done) {
-    api
+  it('should return 400 if no resetToken was sent', function() {
+    return api
       .patch('/api/v1/forgot-password')
       .send({
         newPassword: 'password'
       })
-      .end(function(err,res) {
+      .then(function(res) {
         expect(res.status).to.equal(400);
-        done();
       });
   });
 
-  it('should return 400 if no newPassword was sent', function(done) {
-    api
+  it('should return 400 if no newPassword was sent', function() {
+    return api
       .patch('/api/v1/forgot-password')
       .send({
         resetToken: 'invalidtoken'
       })
-      .end(function(err,res) {
+      .then(function(res) {
         expect(res.status).to.equal(400);
-        done();
       });
   });
 

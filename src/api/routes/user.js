@@ -59,7 +59,7 @@ var routes = [
     }
   },
   {
-    method: 'POST',
+    method: 'PATCH',
     path: '/api/v1/users/{user_id}/change-password',
     handler: controller.setPasswordForced,
     config: {

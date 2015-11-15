@@ -4,11 +4,11 @@ import chai from 'chai';
 let expect = chai.expect;
 
 
-describe('POST /api/v1/users/{user_id}/change-password', function() {
+describe('PATCH /api/v1/users/{user_id}/change-password', function() {
 
   it('should return 403 for an user account (not admin)', function(done){
     api
-      .post('/api/v1/users/10003/change-password')
+      .patch('/api/v1/users/10003/change-password')
       .set('Authorization', 'Bearer ' + 'daa32876-80fc-44a7-be8c-e09804001626')
       .send({
         newPassword: 'password'
@@ -21,7 +21,7 @@ describe('POST /api/v1/users/{user_id}/change-password', function() {
 
   it('should allow to reset another admins password', function(done){
     api
-      .post('/api/v1/users/10004/change-password')
+      .patch('/api/v1/users/10004/change-password')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')
       .send({
         newPassword: 'password'
@@ -34,7 +34,7 @@ describe('POST /api/v1/users/{user_id}/change-password', function() {
 
   it('should change the password of user3 and login successfully with the new password', function(done) {
     api
-      .post('/api/v1/users/10003/change-password')
+      .patch('/api/v1/users/10003/change-password')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')
       .send({
         newPassword: 'password3'
@@ -82,7 +82,7 @@ describe('POST /api/v1/users/{user_id}/change-password', function() {
 
   it('should return 400 if no new password was sent', function(done) {
     api
-      .post('/api/v1/users/10003/change-password')
+      .patch('/api/v1/users/10003/change-password')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')
       .send({ })
       .end(function(err,res) {

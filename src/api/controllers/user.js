@@ -131,3 +131,31 @@ export function setPasswordForced(request, reply) {
     });
   reply(promise);
 }
+
+
+/**
+ * sets the given user to active or inactive.
+ * this function can just be called as an admin user
+ */
+export function setActive(request, reply) {
+  let promise = User
+    .find({
+      where: {
+        id: request.params.user_id
+      }
+    })
+    .then(function(userInstance) {
+      if (!userInstance) {
+        throw Boom.create(404, 'User not found!');
+      }
+      if (userInstance.role === 'admin') {
+        throw Boom.create(403, 'You are not allowed to change another admins activity');
+      }
+      userInstance.isActive = request.payload.isActive;
+      return userInstance.save();
+    })
+    .then(function(userInstance) {
+      return {};
+    });
+  reply(promise);
+}

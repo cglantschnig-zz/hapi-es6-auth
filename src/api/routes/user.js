@@ -7,7 +7,8 @@ import {
   forgotPasswordSchema,
   forgotPasswordResponseSchema,
   changePasswordWithTokenSchema,
-  changePasswordAsAdminSchema } from '../schema/userSchema';
+  changePasswordAsAdminSchema,
+  setActiveAsAdminSchema } from '../schema/userSchema';
 import { tokenSchema } from '../schema/authSchema';
 
 
@@ -73,6 +74,24 @@ var routes = [
       },
       validate: {
         payload: changePasswordAsAdminSchema
+      }
+    }
+  },
+  {
+    method: 'PATCH',
+    path: '/api/v1/users/{user_id}/set-active',
+    handler: controller.setActive,
+    config: {
+      auth: {
+        strategies: ['simple']
+      },
+      plugins: {
+        hapiAuthorization: {
+          roles: ['admin']
+        }
+      },
+      validate: {
+        payload: setActiveAsAdminSchema
       }
     }
   }

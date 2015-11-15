@@ -39,3 +39,9 @@ export var changePasswordAsAdminSchema = Joi
   .keys({
     newPassword: Joi.string().min(6).required()
   });
+
+export var setActiveAsAdminSchema = Joi
+  .object()
+  .keys({
+    isActive: Joi.boolean().required()
+  });

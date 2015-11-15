@@ -19,7 +19,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
       });
   });
 
-  it('should allow to reset another admins password', function(done){
+  it('should not allow to reset another admins password', function(done){
     api
       .patch('/api/v1/users/10004/change-password')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')

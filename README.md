@@ -54,6 +54,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] user account history
  - [ ] change promises with async/await
  - [ ] add api documentation as markdown
+ - [ ] add a linter gulp task
 
 ## License
 

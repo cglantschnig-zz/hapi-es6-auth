@@ -114,7 +114,7 @@ export function validateToken(token, callback) {
       }
       return callback(null, true, {
         user: userInstance,
-        role: userInstance.role
+        scope: userInstance.role
       });
     });
 }

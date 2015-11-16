@@ -11,7 +11,6 @@
     "good-console": "^5.1.0",
     "hapi": "^11.1.1",
     "hapi-auth-bearer-token": "^3.1.1",
-    "hapi-authorization": "^2.2.1",
     "joi": "^7.0.0",
     "lodash": "^3.10.1",
     "node-uuid": "^1.4.3",

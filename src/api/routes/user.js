@@ -19,12 +19,8 @@ var routes = [
     handler: controller.resetPassword,
     config: {
       auth: {
-        strategies: ['simple']
-      },
-      plugins: {
-        hapiAuthorization: {
-          roles: ['user', 'admin']
-        }
+        strategies: ['simple'],
+        scope: ['user', 'admin']
       },
       validate: {
         payload: resetPasswordSchema
@@ -65,12 +61,8 @@ var routes = [
     handler: controller.setPasswordForced,
     config: {
       auth: {
-        strategies: ['simple']
-      },
-      plugins: {
-        hapiAuthorization: {
-          roles: ['admin']
-        }
+        strategies: ['simple'],
+        scope: 'admin'
       },
       validate: {
         payload: changePasswordAsAdminSchema
@@ -83,12 +75,8 @@ var routes = [
     handler: controller.setActive,
     config: {
       auth: {
-        strategies: ['simple']
-      },
-      plugins: {
-        hapiAuthorization: {
-          roles: ['admin']
-        }
+        strategies: ['simple'],
+        scope: 'admin'
       },
       validate: {
         payload: setActiveAsAdminSchema

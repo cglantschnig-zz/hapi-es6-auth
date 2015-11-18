@@ -46,7 +46,7 @@ module.exports = {
     });
   },
 
-  down: function(migration, Sequelize) {
+  down: function(migration) {
     return migration.dropTable('Users');
   }
 };

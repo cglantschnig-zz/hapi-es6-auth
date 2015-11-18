@@ -70,7 +70,7 @@ export function register(request, reply) {
     .then(function(userInstance) {
       // we found a user with the given email or username. Warn the user!
       if (userInstance) {
-        throw Boom.create(409, "Username or Email are already used");
+        throw Boom.create(409, 'Username or Email are already used');
       }
       var user = assign(request.payload, {
         role: 'user'

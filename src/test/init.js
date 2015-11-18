@@ -32,7 +32,7 @@ beforeEach(function(done) {
     .then(function() {
       return initialData();
     })
-    .then(function(data) {
+    .then(function() {
       done();
     });
 })

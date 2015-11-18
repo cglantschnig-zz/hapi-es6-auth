@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 import Boom from 'boom';
-import { Sequelize, User } from '../../shared/models/';
+import { User } from '../../shared/models/';
 import MailService from '../../shared/services/MailService';
 import { createToken } from '../utils/auth';
 
@@ -22,7 +22,7 @@ export function resetPassword(request, reply) {
     .then(function(userInstance) {
       return userInstance.save();
     })
-    .then(function(userInstance) {
+    .then(function() {
       return {};
     });
   reply(promise);
@@ -126,7 +126,7 @@ export function setPasswordForced(request, reply) {
     .then(function(userInstance) {
       return userInstance.save();
     })
-    .then(function(userInstance) {
+    .then(function() {
       return {};
     });
   reply(promise);
@@ -154,7 +154,7 @@ export function setActive(request, reply) {
       userInstance.isActive = request.payload.isActive;
       return userInstance.save();
     })
-    .then(function(userInstance) {
+    .then(function() {
       return {};
     });
   reply(promise);

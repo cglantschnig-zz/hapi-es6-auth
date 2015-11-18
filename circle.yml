@@ -11,4 +11,5 @@ test:
   pre:
     - docker-compose up -d
   override:
+    - docker-compose run web npm run lint
     - docker-compose run web npm test

@@ -3,6 +3,7 @@ web:
   volumes:
     - "./src:/server/src"
     - "./gulpfile.js:/server/gulpfile.js"
+    - "./.eslintrc:/server/.eslintrc"
   ports:
     - "3000:3000"
   env_file:

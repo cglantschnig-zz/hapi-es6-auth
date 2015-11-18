@@ -60,7 +60,7 @@ describe('POST /api/v1/auth/token', function() {
             .post('/api/v1/auth/token')
             .send({
               grant_type: 'refresh_token',
-              refresh_token: res.body.refresh_token,
+              refresh_token: res.body.refresh_token
             });
         })
         .then(function(res) {

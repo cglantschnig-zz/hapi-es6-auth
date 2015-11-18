@@ -1,6 +1,6 @@
 import Umzug from 'umzug';
 import config from '../config';
-import { sequelize, Sequelize } from '../models/';
+import { sequelize } from '../models/';
 import server from '../../api/api';
 
 var umzug = new Umzug({
@@ -42,7 +42,7 @@ var umzug = new Umzug({
 export function up() {
   return umzug
     .executed()
-    .then(function(executedMigrations) {
+    .then(function() {
       return umzug.pending();
     })
     .then(function(pendingMigrations) {

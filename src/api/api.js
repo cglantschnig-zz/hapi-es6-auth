@@ -3,7 +3,7 @@ import { union, values } from 'lodash';
 import promisify from 'es6-promisify';
 import config from '../shared/config';
 import models from '../shared/models/';
-import { up, dropTables } from '../shared/utils/migrate';
+import { up } from '../shared/utils/migrate';
 import { validateToken } from './utils/auth';
 
 export var server = new Hapi.Server();

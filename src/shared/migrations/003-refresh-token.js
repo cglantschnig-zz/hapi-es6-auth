@@ -23,14 +23,14 @@ module.exports = {
       user_id: {
         type: DataTypes.INTEGER,
         references: {
-          model: "Users",
-          key: "id"
+          model: 'Users',
+          key: 'id'
         }
       }
     });
   },
 
-  down: function(migration, Sequelize) {
+  down: function(migration) {
     return migration.dropTable('RefreshTokens');
   }
 };

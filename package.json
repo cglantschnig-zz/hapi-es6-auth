@@ -5,8 +5,11 @@
   "main": "./src/api/index.js",
   "dependencies": {
     "babel": "^5.8.23",
+    "babel-eslint": "^4.1.5",
     "boom": "^3.0.0",
     "es6-promisify": "^3.0.0",
+    "eslint": "^1.9.0",
+    "eslint-plugin-react": "^3.9.0",
     "good": "^6.4.0",
     "good-console": "^5.1.0",
     "hapi": "^11.1.1",
@@ -30,7 +33,8 @@
   },
   "scripts": {
     "start": "node ./src/api/index.js",
-    "test": "mocha ./src/test/index.js"
+    "test": "./node_modules/.bin/mocha ./src/test/index.js",
+    "lint": "./node_modules/.bin/eslint src/"
   },
   "repository": {
     "type": "git",

@@ -12,6 +12,7 @@ Here a list of implemented features and tested:
 * Password reset function
 * Forgot password (with sending an email)
 * set password as admin
+* send emails with templates
 
 ## Prerequisites
 

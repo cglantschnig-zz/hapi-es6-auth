@@ -4,11 +4,11 @@ import config from '../config';
 
 
 if (!config.mail.key) {
-  throw new Exception('MAIL_SERVICE_KEY is not set!');
+  throw new Error('MAIL_SERVICE_KEY is not set!');
 }
 
 if (!config.mail.from_address) {
-  throw new Exception('MAIL_FROM_ADDRESS is not set!');
+  throw new Error('MAIL_FROM_ADDRESS is not set!');
 }
 
 const options = {

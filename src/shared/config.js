@@ -26,7 +26,8 @@ const config = {
   mail: {
     is_enabled: environment === 'test' ? false : process.env.MAIL_ENABLED === 'enabled',
     key: process.env.MAIL_SERVICE_KEY,
-    from_address: process.env.MAIL_FROM_ADDRESS
+    from_address: process.env.MAIL_FROM_ADDRESS,
+    template_path: path.join(__dirname, 'templates') // ~/src/shared/templates/
   },
   api_database: {
     version:  process.env.DB_ENV_PG_MAJOR,

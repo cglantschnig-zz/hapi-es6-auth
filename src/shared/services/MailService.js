@@ -1,6 +1,13 @@
+import { readFile } from 'fs';
+import { join } from 'path';
+import { defaults } from 'lodash';
+import promisify from 'es6-promisify';
 import nodemailer from 'nodemailer';
-import sendGridTransport from 'nodemailer-sendgrid-transport'
+import sendGridTransport from 'nodemailer-sendgrid-transport';
+import Handlebars from 'handlebars';
 import config from '../config';
+
+let readFileAsync = promisify(readFile);
 
 
 if (!config.mail.key) {
@@ -32,21 +39,57 @@ class MailService {
   }
 
   /**
-   * checks the config if sending an email is enabled,
-   * if everything is working we send an email.
+   * function to send an email. Its workflow is the following
+   * 1. check if sending emails is enabled
+   * 2. check given options obejct
+   * 3. set default options
+   * 4. load template file
+   * 5. compile template file with the given data
+   * 6. send email
+   *
+   * @param options - an object that looks like
+   * {
+   *   template: 'base.html',
+   *   data: {  },
+   *   to: 'test@mail.com',
+   *   subject: 'Test Email'
+   * }
    */
-  send(options) {
+  send(_options) {
     if (!config.mail.is_enabled) {
       return Promise.resolve('Sending emails is disabled');
     }
-    return this.transporter.sendMail(options);
+    if (!_options.to || !_options.subject) {
+      throw new Error('Invalid Parameters for sending Emails [missing options.to or options.subject]');
+    }
+    let options = defaults(_options, {
+      template: 'base.html',
+      data: { }
+    });
+    let templateFile = join(config.mail.template_path, options.template);
+    return readFileAsync(templateFile, 'utf8')
+      .then((content) => {
+        let template = Handlebars.compile(content);
+        return template(options.data);
+      })
+      .then((htmlContent) => {
+        return this.transporter.sendMail({
+          to: options.to,
+          subject: options.subject,
+          html: htmlContent
+        });
+      });
   }
 
   sendPasswordForgot(userInstance) {
-    return this.transporter.sendMail({
+    return this.send({
         to: userInstance.email,
         subject: 'Password Forgotten Email',
-        text: `Your password reset link (${userInstance.resetToken}) which is valid till ${userInstance.resetTokenValidity}`
+        data: {
+          resetToken: userInstance.resetToken,
+          resetTokenValidity: userInstance.resetTokenValidity,
+          username: userInstance.username
+        }
     });
   }
 

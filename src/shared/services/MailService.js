@@ -1,6 +1,26 @@
 import nodemailer from 'nodemailer';
+import sendGridTransport from 'nodemailer-sendgrid-transport'
 import config from '../config';
 
+
+if (!config.mail.key) {
+  throw new Exception('MAIL_SERVICE_KEY is not set!');
+}
+
+if (!config.mail.from_address) {
+  throw new Exception('MAIL_FROM_ADDRESS is not set!');
+}
+
+const options = {
+    auth: {
+        api_key: config.mail.key
+    }
+};
+
+const transporter = nodemailer.createTransport(sendGridTransport(options), {
+    // default values for sendMail method
+    from: config.mail.from_address
+});
 
 /**
  * This class is handling all email transports
@@ -8,16 +28,18 @@ import config from '../config';
 class MailService {
 
   constructor() {
-    this.transporter = nodemailer.createTransport({
-        service: config.mail.service,
-        auth: {
-            user: config.mail.username,
-            pass: config.mail.password
-        }
-    }, {
-        // default values for sendMail method
-        from: config.mail.from_address
-    });
+    this.transporter = transporter;
+  }
+
+  /**
+   * checks the config if sending an email is enabled,
+   * if everything is working we send an email.
+   */
+  send(options) {
+    if (!config.mail.is_enabled) {
+      return Promise.resolve('Sending emails is disabled');
+    }
+    return this.transporter.sendMail(options);
   }
 
   sendPasswordForgot(userInstance) {
@@ -30,23 +52,5 @@ class MailService {
 
 }
 
-/**
- * This class is handling all email transports (in our test environment)
- */
-class MailServiceTest {
 
-  constructor() { }
-
-  sendPasswordForgot(userInstance) {
-    return Promise.resolve({
-        to: userInstance.email,
-        subject: 'Password Forgotten Email',
-        text: `Your password reset link (${userInstance.resetToken}) which is valid till ${userInstance.resetTokenValidity}`
-    });
-  }
-
-}
-
-let Service = (config.environment !== 'test') ? MailService : MailServiceTest;
-
-export default Service;
+export default MailService;

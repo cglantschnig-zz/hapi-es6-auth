@@ -4,11 +4,11 @@
 
 import path from 'path';
 
-var allowedEnvironments = [
+const allowedEnvironments = [
   'development',
   'test'
 ];
-var environment = process.env.NODE_ENV;
+const environment = process.env.NODE_ENV;
 
 // test if the given environment is a valid one
 if ( allowedEnvironments.indexOf(environment) < 0 ) {
@@ -18,15 +18,14 @@ if ( allowedEnvironments.indexOf(environment) < 0 ) {
 
 console.log('Using ' + environment + ' environment');
 
-var config = {
+const config = {
   environment: environment,
   host: process.env.APP_HOST || '0.0.0.0',
   port: process.env.APP_PORT || 3000,
   base_path: path.join(__dirname, '../'), // ~/src/
   mail: {
-    service: process.env.MAIL_SERVICE || 'gmail',
-    username: process.env.MAIL_USERNAME,
-    password: process.env.MAIL_PASSWORD,
+    is_enabled: environment === 'test' ? false : process.env.MAIL_ENABLED === 'enabled',
+    key: process.env.MAIL_SERVICE_KEY,
     from_address: process.env.MAIL_FROM_ADDRESS
   },
   api_database: {

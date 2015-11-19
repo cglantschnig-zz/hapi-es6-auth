@@ -6,7 +6,9 @@ import models from '../shared/models/';
 import { up } from '../shared/utils/migrate';
 import { validateToken } from './utils/auth';
 
-export var server = new Hapi.Server();
+export var server = new Hapi.Server({
+  debug: config.environment === 'development' ? { request: ['error'] } : false
+});
 server.connection({
   host: config.host,
   port: config.port
@@ -50,7 +52,8 @@ export var ready = register(require('./plugins'))
   });
 
 process.on('uncaughtException', function(err) {
-  console.error('Caught exception: ', err);
+  console.error('UNCAUGHT EXCEPTION');
+  console.error(err);
 });
 
 export default server;

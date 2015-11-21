@@ -57,6 +57,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] change promises with async/await
  - [ ] add api documentation as markdown
  - [ ] research about good practises in email templates (maybe use [React Templates](https://github.com/oysterbooks/oy))
+ - [ ] research about how to handle links in i18n strings
 
 ## License
 

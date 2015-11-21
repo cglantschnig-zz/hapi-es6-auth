@@ -211,7 +211,7 @@
 														<tr>
 															<td style="font-family: Helvetica, arial, sans-serif; font-size: 30px; color: #333333; text-align:center; line-height: 30px;">
 																<p>
-																	<span style="font-size: 18pt; background-color: rgb(242, 242, 244);">Hi, {{username}}</span>
+																	<span style="font-size: 18pt; background-color: rgb(242, 242, 244);">{{hi-user}}</span>
 																</p>
 															</td>
 														</tr>
@@ -230,13 +230,13 @@
 														<tr>
 															<td style="font-family: Helvetica, arial, sans-serif; font-size: 16px; color: #666666; text-align:center; line-height: 30px;">
 																<p>
-																	You forgot your email. In order to change your password click on the given link below:
+																	{{forgotEmailMessage}}
 																</p>
 																<p>
 																	{{resetToken}}
 																</p>
 																<p>
-																	If you never tried to reset your password, then ignore this email.
+																	{{forgotEmailFooter}}
 																</p>
 															</td>
 														</tr>
@@ -305,7 +305,7 @@
 										<tr>
 											<td align="center" valign="middle" style="font-family: Helvetica, arial, sans-serif; font-size: 14px;color: #666666">
 												<p>
-													Click here to <a style="text-decoration: none; color: #0a8cce" href="#">Unsubscribe</a>
+													Click here to <a style="text-decoration: none; color: #0a8cce" href="#">{{unsubscribe}}</a>
 												</p>
 											</td>
 										</tr>

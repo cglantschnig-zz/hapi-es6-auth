@@ -6,6 +6,7 @@ import nodemailer from 'nodemailer';
 import sendGridTransport from 'nodemailer-sendgrid-transport';
 import Handlebars from 'handlebars';
 import config from '../config';
+import Internationalization from './Internationalization';
 
 let readFileAsync = promisify(readFile);
 
@@ -82,13 +83,16 @@ class MailService {
   }
 
   sendPasswordForgot(userInstance) {
+    let intl = new Internationalization();
     return this.send({
         to: userInstance.email,
         subject: 'Password Forgotten Email',
         data: {
           resetToken: userInstance.resetToken,
           resetTokenValidity: userInstance.resetTokenValidity,
-          username: userInstance.username
+          hiUser: intl.get('email/hi-user', { username: userInstance.username }),
+          forgotEmailFooter: intl.get('email/forgot-email-footer'),
+          forgotEmailMessage: intl.get('email/forgot-email-message')
         }
     });
   }

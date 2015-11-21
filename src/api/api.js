@@ -5,6 +5,7 @@ import config from '../shared/config';
 import models from '../shared/models/';
 import { up } from '../shared/utils/migrate';
 import { validateToken } from './utils/auth';
+import { loadLanguageFiles } from '../shared/utils/localizations';
 
 export var server = new Hapi.Server({
   debug: config.environment === 'development' ? { request: ['error'] } : false
@@ -34,7 +35,11 @@ export var ready = register(require('./plugins'))
     server.log('info', 'Connection to Database successfully tested!');
     return up();
   })
+  .then(function() {
+    return loadLanguageFiles();
+  })
   .then(function () {
+    server.log('info', 'Language Cached Filled');
 
     server.auth.strategy('simple', 'bearer-access-token', {
         allowQueryToken: false,              // optional, true by default

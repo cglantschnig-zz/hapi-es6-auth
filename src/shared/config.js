@@ -46,7 +46,9 @@ const config = {
     password: process.env.DB_TEST_ENV_POSTGRES_PASSWORD
   },
   token_validity: 1 * 60 * 60, // 1 hour
-  refresh_token_validity: 30 * 24 * 60 * 60 // 30 days
+  refresh_token_validity: 30 * 24 * 60 * 60, // 30 days
+  default_langauge: process.env.DEFAULT_LANGUAGE || 'en',
+  i18n_path: path.join(__dirname, 'i18n')
 };
 
 // set the database which is about to be used

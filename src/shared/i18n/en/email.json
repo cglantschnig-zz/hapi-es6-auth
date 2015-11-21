@@ -1,0 +1,5 @@
+{
+  "hi-user": "Hi {username}",
+  "forgot-email-footer": "If you never tried to reset your password, then ignore this email.",
+  "forgot-email-message": "You forgot your email. In order to change your password click on the given link below:"
+}

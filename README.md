@@ -13,6 +13,7 @@ Here a list of implemented features and tested:
 * Forgot password (with sending an email)
 * set password as admin
 * send emails with templates
+* basic i18n integration
 
 ## Prerequisites
 
@@ -55,6 +56,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] user account history
  - [ ] change promises with async/await
  - [ ] add api documentation as markdown
+ - [ ] research about good practises in email templates (maybe use [React Templates](https://github.com/oysterbooks/oy))
 
 ## License
 

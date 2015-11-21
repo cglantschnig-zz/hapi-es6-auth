@@ -25,7 +25,7 @@ const options = {
     }
 };
 
-const transporter = nodemailer.createTransport(sendGridTransport(options), {
+const fallbackTransporter = nodemailer.createTransport(sendGridTransport(options), {
     // default values for sendMail method
     from: config.mail.from_address
 });
@@ -36,7 +36,8 @@ const transporter = nodemailer.createTransport(sendGridTransport(options), {
 class MailService {
 
   constructor() {
-    this.transporter = transporter;
+    this.transporter = fallbackTransporter;
+    this.isEnabled = config.mail.is_enabled;
   }
 
   /**
@@ -57,7 +58,7 @@ class MailService {
    * }
    */
   send(_options) {
-    if (!config.mail.is_enabled) {
+    if (!this.isEnabled) {
       return Promise.resolve('Sending emails is disabled');
     }
     if (!_options.to || !_options.subject) {
@@ -83,7 +84,7 @@ class MailService {
   }
 
   sendPasswordForgot(userInstance) {
-    let intl = new Internationalization();
+    let intl = new Internationalization(userInstance.language);
     return this.send({
         to: userInstance.email,
         subject: 'Password Forgotten Email',

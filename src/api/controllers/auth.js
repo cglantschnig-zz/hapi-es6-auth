@@ -4,6 +4,7 @@ import { Sequelize, User } from '../../shared/models/';
 import { checkSchema } from '../utils/schemaHelper';
 import { validateRefreshTokenType, validatePasswordType, createToken } from '../utils/auth';
 import { passwordTypeSchema, refreshTokenTypeSchema } from '../schema/authSchema';
+import config from '../../shared/config';
 
 /**
  * This function is about to authenticate the user. It returns an access token.
@@ -73,7 +74,8 @@ export function register(request, reply) {
         throw Boom.create(409, 'Username or Email are already used');
       }
       var user = assign(request.payload, {
-        role: 'user'
+        role: 'user',
+        language: config.defaultLanguage
       });
       return User.build(user).hashPassword();
     })

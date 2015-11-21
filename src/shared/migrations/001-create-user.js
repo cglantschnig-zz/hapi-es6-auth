@@ -37,6 +37,9 @@ module.exports = {
       resetTokenValidity: {
         type: DataTypes.DATE
       },
+      language: {
+        type: DataTypes.STRING(32)
+      },
       created_at: {
         type: DataTypes.DATE
       },

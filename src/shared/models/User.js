@@ -3,7 +3,7 @@
 import crypto from 'crypto';
 import promisify from 'es6-promisify';
 
-let hashWord = promisify(crypto.pbkdf2);
+const hashWord = promisify(crypto.pbkdf2);
 
 export default function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
@@ -46,6 +46,9 @@ export default function(sequelize, DataTypes) {
     },
     resetTokenValidity: {
       type: DataTypes.DATE
+    },
+    language: {
+      type: DataTypes.STRING(32)
     }
 
   },

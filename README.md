@@ -58,6 +58,7 @@ The points below are the current todo list. Feel free to add points.
  - [ ] add api documentation as markdown
  - [ ] research about good practises in email templates (maybe use [React Templates](https://github.com/oysterbooks/oy))
  - [ ] research about how to handle links in i18n strings
+ - [ ] add isomorph call of cms
 
 ## License
 

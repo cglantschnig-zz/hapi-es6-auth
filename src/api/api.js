@@ -21,14 +21,18 @@ if (config.environment === 'test') {
 }
 
 // get all routes which are located in the routes directory
-let unformatedRoutes = require('require-dir')('./routes');
-let routes = union(...values(unformatedRoutes));
-
+let promisedRoutes = require('require-dir')('./routes');
+let routes = [];
 
 let register = promisify(server.register.bind(server));
 
 export var ready = register(require('./plugins'))
   .then(function() {
+    return Promise.all(values(promisedRoutes));
+  })
+  .then(function(unformatedRoutes) {
+    routes = union(...unformatedRoutes);
+    server.log('info', 'All routes loaded');
     return models.sequelize.authenticate();
   })
   .then(function() {
@@ -54,6 +58,9 @@ export var ready = register(require('./plugins'))
       server.log('info', 'Server running at: ' + server.info.uri);
     });
     return server;
+  })
+  .catch(function(error) {
+    console.error(error);
   });
 
 process.on('uncaughtException', function(err) {

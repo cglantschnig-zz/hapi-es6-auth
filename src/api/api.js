@@ -42,10 +42,10 @@ export var ready = register(require('./plugins'))
     server.log('info', 'Language Cached Filled');
 
     server.auth.strategy('simple', 'bearer-access-token', {
-        allowQueryToken: false,              // optional, true by default
-        allowMultipleHeaders: false,        // optional, false by default
-        accessTokenName: 'access_token',    // optional, 'access_token' by default
-        validateFunc: validateToken
+      allowQueryToken: false,              // optional, true by default
+      allowMultipleHeaders: false,        // optional, false by default
+      accessTokenName: 'access_token',    // optional, 'access_token' by default
+      validateFunc: validateToken
     });
 
     server.route(routes);

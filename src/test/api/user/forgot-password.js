@@ -24,7 +24,7 @@ describe('POST /api/v1/forgot-password', function() {
       .send({
         email: 'notexistingemail@test.com'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(404);
       });
   });
@@ -33,7 +33,7 @@ describe('POST /api/v1/forgot-password', function() {
     return api
       .post('/api/v1/forgot-password')
       .send({ })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });

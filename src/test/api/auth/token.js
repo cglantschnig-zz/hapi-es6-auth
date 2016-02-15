@@ -13,7 +13,7 @@ describe('POST /api/v1/auth/token', function() {
         .send({
           grant_type: 'refresh_token'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(400);
         });
     });
@@ -25,7 +25,7 @@ describe('POST /api/v1/auth/token', function() {
           refresh_token: '2f976bd9-b982-4276-8783-2fc9e175dc4a',
           grant_type: 'refresh_token'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(423);
         });
     });
@@ -118,7 +118,7 @@ describe('POST /api/v1/auth/token', function() {
           username: 'user3@test.com',
           grant_type: 'password'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(423);
         });
     });
@@ -192,7 +192,7 @@ describe('POST /api/v1/auth/token', function() {
           username: 'username1',
           grant_type: 'password'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(401);
         });
     });
@@ -205,7 +205,7 @@ describe('POST /api/v1/auth/token', function() {
           username: 'notExistingUser',
           grant_type: 'password'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(404);
         });
     });
@@ -217,7 +217,7 @@ describe('POST /api/v1/auth/token', function() {
           password: 'password',
           grant_type: 'password'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(400);
         });
     });
@@ -229,7 +229,7 @@ describe('POST /api/v1/auth/token', function() {
           username: 'username',
           grant_type: 'password'
         })
-        .then(function(res) {
+        .catch(function(res) {
           expect(res.status).to.equal(400);
         });
     });
@@ -243,7 +243,7 @@ describe('POST /api/v1/auth/token', function() {
         username: 'username',
         password: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -254,7 +254,7 @@ describe('POST /api/v1/auth/token', function() {
       .send({
         grant_type: 'invalid'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });

@@ -13,7 +13,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
       .send({
         newPassword: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(403);
       });
   });
@@ -25,7 +25,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
       .send({
         newPassword: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(403);
       });
   });
@@ -47,7 +47,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
             grant_type: 'password'
           });
       })
-      .then(function(res) {
+      .catch(function(res) {
         // old password should result in an invalid login
         expect(res.status).to.equal(401);
         return api
@@ -70,7 +70,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
       .send({
         newPassword: 'pass'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -80,7 +80,7 @@ describe('PATCH /api/v1/users/{user_id}/change-password', function() {
       .patch('/api/v1/users/10003/change-password')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')
       .send({ })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });

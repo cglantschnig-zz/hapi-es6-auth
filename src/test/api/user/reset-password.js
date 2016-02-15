@@ -47,7 +47,7 @@ describe('POST /api/v1/reset-password', function() {
             grant_type: 'password'
           });
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(401);
       });
   });
@@ -62,7 +62,7 @@ describe('POST /api/v1/reset-password', function() {
         oldPassword: 'wrongpassword',
         newPassword: 'password2'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(401);
       });
   });
@@ -74,7 +74,7 @@ describe('POST /api/v1/reset-password', function() {
       .send({
         newPassword: 'password2'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -86,7 +86,7 @@ describe('POST /api/v1/reset-password', function() {
       .send({
         oldPassword: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -99,7 +99,7 @@ describe('POST /api/v1/reset-password', function() {
         oldPassword: 'password',
         newPassword: 'bad'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -112,7 +112,7 @@ describe('POST /api/v1/reset-password', function() {
         oldPassword: 'bad',
         newPassword: 'password2'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });

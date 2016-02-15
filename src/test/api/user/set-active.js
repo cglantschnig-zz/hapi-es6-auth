@@ -13,7 +13,7 @@ describe('PATCH /api/v1/users/{user_id}/set-active', function() {
       .send({
         isActive: true
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(403);
       });
   });
@@ -25,7 +25,7 @@ describe('PATCH /api/v1/users/{user_id}/set-active', function() {
       .send({
         isActive: false
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(403);
       });
   });
@@ -47,7 +47,7 @@ describe('PATCH /api/v1/users/{user_id}/set-active', function() {
             grant_type: 'password'
           });
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(423);
       });
   });
@@ -57,7 +57,7 @@ describe('PATCH /api/v1/users/{user_id}/set-active', function() {
       .patch('/api/v1/users/10003/set-active')
       .set('Authorization', 'Bearer ' + '74dd9ed7-31e3-4dc8-91a6-b6e3e87b08d0')
       .send({ })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -70,7 +70,7 @@ describe('PATCH /api/v1/users/{user_id}/set-active', function() {
         oldPassword: 'password',
         newPassword: 'password2'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(401);
         return api
           .patch('/api/v1/users/10005/set-active')
@@ -102,7 +102,7 @@ describe('PATCH /api/v1/users/{user_id}/set-active', function() {
         oldPassword: 'password',
         newPassword: 'password2'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(401);
       });
   });

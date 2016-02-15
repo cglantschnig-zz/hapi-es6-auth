@@ -35,7 +35,7 @@ describe('PATCH /api/v1/forgot-password', function() {
         resetToken: '12345678',
         newPassword: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(404);
       });
   });
@@ -47,7 +47,7 @@ describe('PATCH /api/v1/forgot-password', function() {
         resetToken: 'invalidtoken',
         newPassword: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(404);
       });
   });
@@ -58,7 +58,7 @@ describe('PATCH /api/v1/forgot-password', function() {
       .send({
         newPassword: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -69,7 +69,7 @@ describe('PATCH /api/v1/forgot-password', function() {
       .send({
         resetToken: 'invalidtoken'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });

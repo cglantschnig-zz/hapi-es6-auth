@@ -30,7 +30,7 @@ describe('POST /api/v1/register', function() {
         password: 'password',
         username: 'username'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(409);
       });
   });
@@ -43,7 +43,7 @@ describe('POST /api/v1/register', function() {
         password: 'password',
         username: 'username1'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(409);
       });
   });
@@ -55,7 +55,7 @@ describe('POST /api/v1/register', function() {
         email: 'test@mail.com',
         password: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -67,7 +67,7 @@ describe('POST /api/v1/register', function() {
         password: 'password',
         username: 'username'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -79,7 +79,7 @@ describe('POST /api/v1/register', function() {
         grant_type: 'password',
         username: 'username'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -92,7 +92,7 @@ describe('POST /api/v1/register', function() {
         username: 'username',
         password: 'a'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });
@@ -105,7 +105,7 @@ describe('POST /api/v1/register', function() {
         username: 'a',
         password: 'password'
       })
-      .then(function(res) {
+      .catch(function(res) {
         expect(res.status).to.equal(400);
       });
   });

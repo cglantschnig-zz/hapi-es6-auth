@@ -3,7 +3,7 @@ import { Route } from 'react-router';
 import App from './App';
 
 const routes = (
-  <Route path="/" component={App}></Route>
+  <Route path="/" component={App} />
 );
 
 export default routes;

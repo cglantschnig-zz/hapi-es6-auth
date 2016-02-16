@@ -5,9 +5,8 @@ import { readFile } from 'fs';
 import { join } from 'path';
 import Handlebars from 'handlebars';
 import promisify from 'es6-promisify';
-import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import { RoutingContext, match } from 'react-router';
+import { match } from 'react-router';
 import hist from 'history';
 import adminRoutes from '../../adminpanel/routes';
 import server from '../api';
@@ -26,10 +25,10 @@ var routes = [
       const location = hist.createLocation(request.params.path || '/');
       match({
         routes: adminRoutes,
-        location: location,
+        location: location
       }, (err, redirectLocation, renderProps) => {
         if (redirectLocation) {
-          res.redirect(301, redirectLocation.pathname + redirectLocation.search);
+          reply.redirect(301, redirectLocation.pathname + redirectLocation.search);
         } else if (err) {
           console.log(err);
           // send error

@@ -59,6 +59,8 @@ The points below are the current todo list. Feel free to add points.
  - [ ] research about good practises in email templates (maybe use [React Templates](https://github.com/oysterbooks/oy))
  - [ ] research about how to handle links in i18n strings
  - [ ] add isomorph call of cms
+ - [ ] update babel to 6.x
+ - [ ] update eslint to 2.x and add airbnb as linter default
 
 ## License
 

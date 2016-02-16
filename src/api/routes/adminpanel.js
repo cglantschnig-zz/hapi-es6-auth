@@ -1,58 +1,32 @@
 /**
  * Routes which render all the admin panel urls
  */
-import { readFile } from 'fs';
-import { join } from 'path';
-import Handlebars from 'handlebars';
-import promisify from 'es6-promisify';
-import ReactDOMServer from 'react-dom/server';
-import { match } from 'react-router';
-import hist from 'history';
-import adminRoutes from '../../adminpanel/routes';
-import server from '../api';
-
-const readFileAsync = promisify(readFile);
-const viewPath = join(__dirname, '../views/index.html');
-
-let content = null;
+import React from 'react';
+import { renderToString } from 'react-dom/server';
+import { match, RouterContext } from 'react-router';
+import cmsRoutes from '../../adminpanel/routes';
 
 var routes = [
   {
     method: 'GET',
     path: '/admin/{path*}',
     handler: function(request, reply) {
-      console.log(hist);
-      const location = hist.createLocation(request.params.path || '/');
-      match({
-        routes: adminRoutes,
-        location: location
-      }, (err, redirectLocation, renderProps) => {
-        if (redirectLocation) {
-          reply.redirect(301, redirectLocation.pathname + redirectLocation.search);
-        } else if (err) {
-          console.log(err);
-          // send error
-        } else if (renderProps === null) {
-          // send 404
+      let pathUrl = '/' + (request.params.path || '');
+      // Note that req.url here should be the full URL path from
+      // the original request, including the query string.
+      match({ routes: cmsRoutes, location: pathUrl }, (error, redirectLocation, renderProps) => {
+        if (error) {
+          reply(error.message);
+        } else if (redirectLocation) {
+          reply.redirect(redirectLocation.pathname + redirectLocation.search)
+        } else if (renderProps) {
+          reply(renderToString(<RouterContext {...renderProps} />));
         } else {
-          console.log(renderProps);
-          let componentString = ReactDOMServer.renderToString(adminRoutes.component);
-          let template = Handlebars.compile(content);
-          let result = template({
-            content: componentString,
-            title: 'Hapi-Auth-Es6'
-          });
-          reply(result);
+          reply('Not found');
         }
-      });
-
+      })
     }
   }
 ];
 
-export default readFileAsync(viewPath, 'utf8')
-  .then((_content) => {
-    content = _content;
-    server.log('info', 'Loaded template for server side rendering');
-    return routes;
-  });
+export default routes;

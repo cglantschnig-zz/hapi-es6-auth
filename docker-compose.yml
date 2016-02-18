@@ -3,6 +3,7 @@ web:
   volumes:
     - "./src:/server/src"
     - "./gulpfile.js:/server/gulpfile.js"
+    - "./webpack.config.js:/server/webpack.config.js"
     - "./.eslintrc:/server/.eslintrc"
   ports:
     - "3000:3000"

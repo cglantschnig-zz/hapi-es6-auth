@@ -36,16 +36,18 @@
   "devDependencies": {
     "chai": "^3.4.1",
     "chai-http": "^2.0.1",
-    "gulp": "^3.9.0",
-    "gulp-nodemon": "^2.0.4",
     "eslint": "^1.10.1",
     "eslint-plugin-react": "^3.10.0",
-    "mocha": "^2.3.3"
+    "gulp": "^3.9.0",
+    "gulp-nodemon": "^2.0.4",
+    "mocha": "^2.3.3",
+    "webpack": "^1.12.13"
   },
   "scripts": {
     "start": "node ./src/api/index.js",
     "test": "./node_modules/.bin/mocha ./src/test/index.js",
-    "lint": "./node_modules/.bin/eslint src/"
+    "lint": "./node_modules/.bin/eslint src/",
+    "build": "./node_modules/.bin/webpack"
   },
   "repository": {
     "type": "git",

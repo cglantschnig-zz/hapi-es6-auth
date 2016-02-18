@@ -20,7 +20,7 @@ const handleRender = (renderProps) => {
     </Provider>
   );
 
-  const html = renderToString(<RouterContext {...renderProps} />);
+  const html = renderToString(initialView);
 
   return renderFullPage(html, store.getState());
 }
